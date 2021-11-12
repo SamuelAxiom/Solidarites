@@ -1,0 +1,35 @@
+variable_x	variable_y	description	xtitle	ytitle	legendtitle	title	type					
+assistancetype	CSI	The CSI index of beneficiries is different from one activities to another. MPCA and FSL beneficiaries seems to be more vulnerable	CSI index	violin							for Sankey, maybe add also FCS score to main needs	
+beneficiary_type	FCS	WASH beneficiaries are among the most vulnerables according to FCS. This probably shows the good impact of FSL and cash activities	bar								Faire un graph scatter avec en abscisse les mois MAHFP, en ordonnée le score CSI et en couleur le FCS	
+debts_purpose	CSI	Those having debts for shelter have a higher CSI index	violin								livingcond_adeq	faire un SHAP
+debts_purpose	debt_level	Debts for weddings seem to be quite important	violin									
+diarrhea_cause	FCS	maybe	bar									
+disp_times	CSI	The more people have been displaced the more likely they have higher CSI index	violin									
+district	sickness	maybe	[bar,map]									
+feeding	CSI	Surprisingly it seems that those purchasing fodder have  higher CSI index. This is probably because they do not have other choice (availability of land to pasture maybe)	violin									
+fodder	CSI	Those with higher CSI index tneds to feed their animal mainly with Maize and Alfalfa	violin									
+gender resp	educ	Male ar much more educated than female	bar									
+hosting	[CSI,FCS]	Those hosting people are globally more vulnerable than those who do not (as per CSI and FCS)	[violin,bar]									
+income_source	debt_level	Those living from livestock have higher level of debt	level of cumulative debt	violin								
+income_source	FCS	Land cultivators and formal employer have the lowest FCS Scores which is surprising since formal employer have globally the highest income per member. Howaver, as we can see below this might be because most of them are also unemployed as they say they have no source of Livelihood.	bar									
+income_source	income_per_member	They also have the lowest level of income per family member	income per family member	violin								
+livelihood_source	FCS	Those with no source of livelihood are particularly vulnerable	bar									
+livingcond_adeq	beneficiarytype	WASH beneficiaries do not think their living condition is adequate	bar									
+MAHFP 	[MAHFP,FCS,CSI]	If we look at the different scores we can see that for the most vulnerables the month when it really start to become difficult to eat is December	[violin,bar,violin]									
+main_needs	[CSI,FCS]	The main needs identified by the most vulnerable beneficiaries are latrines, health and waterpoints	[violin,bar]									
+Malnourished_children	[CSI,freq worryfood]	Household with malnourished children tend to worry more about food availability and have higher CSI index	[violin,bar]									
+market_chall	FCS	bar										
+medical_acces	meals_adults	Those having no access to medical facilities also seems to strruglle for eating	bar									
+part_mother_group	[CSI,FCS]	Members of Mother Supporting Groups seems to have higher better FCS though higher CSI	[violin,bar]									
+receive_irrig	MAHFP	Those who receive drip irrigation have significantly higher MAHFP scores	violin									
+region	diarrhea_remedies 	The way to treat diarrhea can vary very much from one region to another, for instance, in Taiz and Marib people quite often  use traditional medicine while almost never in Lahj and Al udaydah	map									
+region	FCS	In Lhaj beneficiaries are more vulnerable although most are host. 	bar									
+region	feeding 	In Al Hudaydah people seems to mainly purchase fodder for cattles	map									
+region	pay_water	people pay for water mainly in Lahj and Al Hudaydah	bar									
+region	water_transmit_disease	In Al Hudaydah, over 40 % people believe that water can not transmit diseases	bar									
+region_origin	CSI	IDPs from Taiz seem particularly vulnerable	violin									
+sickness	husband_train	bar	bar									
+toilet	[MAHFP,FCS,CSI]	Communal latrines users have lower MAHFP	[violin,bar,violin]									
+use_latrine	FCS	bar										
+water_transmit_disease	assistancetype	Surprisingly over 80 % of those having received hygiene kits do not believe water can transmit diseases	bar									
+watersource	FCS	Based on FCS we see also that most vulnerable people have access through public tap/stand pipes (Not only IDPs,  56 % of them are hosts) and unprotected dugwells	bar									
