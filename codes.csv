@@ -1,368 +1,381 @@
-list name	name	label	coding	color
-Consent	1	Yes		
-Consent	2	No		
-yesno	1	Yes		
-yesno	2	No		
-testvalid	1	Valid		
-testvalid	2	Test		
-gender	1	Male		Blue
-gender	2	Female		Pink
-list	1	List of beneficiaries to be interviewed 		
-list	2	Replacement list		
-phonestatus	1	Phone not ringing		
-phonestatus	2	Phone ringing but not answered.		
-phonestatus	3	Respondent answered but refused the interview 		
-phonestatus	4	Respondent answered and accepted the interview		
-region	alhudaydah	Al Hudaydah		
-region	taiz	Taiz		
-region	lahj	Lahj		
-region	marib	Marib		
-marital	1	Married	1.0	Green
-marital	2	Single	0.0	Yellow
-marital	3	Divorced	0.0	Blue
-marital	4	Widower	0.0	Grey
-residency	1	IDP	-1.0	Yellow
-residency	2	Host Community	1.0	Green
-residency	3	Returnee	0.0	Blue
-residency	4	Refugee	-2.0	Orange
-flee_reason	1	Drought		
-flee_reason	2	Lack of food		
-flee_reason	3	Floods		
-flee_reason	4	Conflict		
-flee_reason	5	Lack of water		
-flee_reason	6	Other		
-period	1	1-3 months	1.0	Lightgreen
-period	2	4-6 months	2.5	Yellow
-period	3	About 1 year	6.0	orange
-period	4	1-2 years	9.0	red
-		0	0.0	Green
-period	5	Over 2 years	15.0	darkred
-governorate	1	Amran		
-governorate	2	Dhale		
-governorate	3	Al Bayda		
-governorate	4	Al Hudaydah		
-governorate	5	Al Jawf		
-governorate	6	Al Mahwit		
-governorate	7	Amanat Al Asima		
-governorate	8	Dhamar		
-governorate	9	Hajjah		
-governorate	10	Ibb		
-governorate	11	Ma'rib		
-governorate	12	Raymah		
-governorate	13	Sa'dah		
-governorate	14	Sana'a		
-governorate	15	Taiz		
-governorate	16	Aden		
-governorate	17	Abyan		
-governorate	18	Al Mahra		
-governorate	19	Hadramaut		
-governorate	20	Socotra		
-governorate	21	Lahj		
-governorate	22	Shabwah		
-disp_times	1	Only one movement from the place of origin and now	1.0	Yellow
-		0	0.0	Green
-disp_times	2	Two or more movement from the place of origin and now	3.0	Red
-disp_times	3	Don’t remember	888.0	grey
-disp_times	4	Don’t want to answer	888.0	grey
-month	1	January		
-month	2	February		
-month	3	March		
-month	4	April		
-month	5	May		
-month	6	June		
-month	7	July		
-month	8	August		
-month	9	September		
-month	10	October		
-month	11	November		
-month	12	December		
-housing	1	I am living in a concrete house/finished building	4.0	Green
-housing	2	I am living in an unfinished building	3.0	Lightgreen
-housing	3	I am hosted in a family with charge	1.0	Orange
-housing	4	I am hosted freely in a family	2.0	Yellow
-housing	5	I don’t have shelter / I am living in a public/informal shelter (mosque, school etc)	0.0	Red
-transport	1	No means of transport	0.0	Red
-transport	2	Animal means of transport	1.0	Green
-transport	3	Vehicles	1.0	Blue
-transport	5	Other	1.0	Grey
-educ	1	No education	0.0	Red
-educ	2	Primary	1.0	Orange
-educ	3	Secondary	2.0	Yellow
-educ	5	Institution (2 years after secondary)	3.0	Lightgreen
-educ	6	University or higher education	4.0	Green
-income_source	1	Land cultivation		
-income_source	2	Livestock		
-income_source	3	Small scale trade		
-income_source	4	Aid		
-income_source	5	Remittance		
-income_source	6	Casual employment		
-income_source	7	Formal employment		
-symptoms	1	Diarrhea		
-symptoms	2	Fever		
-symptoms	3	Nausea		
-symptoms	4	Vomiting		
-symptoms	5	Stomach pain		
-symptoms	6	Headache		
-symptoms	7	Other		
-freq	1	Rarely (once or twice in the past four weeks)	1.0	Yellow
-freq	2	Sometimes (three to ten times in the past four weeks)	2.0	Orange
-freq	3	Often (more than ten times in the past four weeks)	3.0	Red
-freq	4	Never	0.0	Green
-irrigation	1	Less than once a week		
-irrigation	2	Once a week		
-irrigation	3	Twice a week		
-irrigation	4	Three times a week		
-irrigation	5	Everyday		
-irr_day	1	Once a day		
-irr_day	2	Twice a day		
-irr_day	3	Three times a day		
-free_pay	1	Free		
-free_pay	2	Pay		
-fertiliser	1	Natural fertilizer		green
-fertiliser	2	Pesticide		grey
-fertiliser	3	None		
-production	1	Handpumps		Green
-production	2	Water pump		Blue
-production	3	Tractor		Yellow
-production	4	Other		Grey
-crops	1	Millet		lightgreen
-crops	2	Corn (maize)		orange
-crops	3	Wheat		yellow
-crops	4	Barley		green
-crops	5	Sorghum		purple
-crops	6	Myriad vegetables		red
-crops	7	Other:		grey
-water_source	1	Spring		green
-water_source	2	Network		Yellow
-water_source	3	Borehole		black
-water_source	4	Stored water from reservoir or pond		blue
-water_source	5	Wastewater of kitchen		brown
-water_source	6	No water source		red
-water_source	7	Other		grey
-feeding	1	Sending to public pasture land		
-feeding	2	Sending to own pasture land		
-feeding	3	Collecting fodder from own land		
-feeding	4	Collecting fodder from natural pasture land		
-feeding	5	Purchasing		
-feeding	6	Other		
-fodder	1	Alfalfa		
-fodder	2	Clover		
-fodder	3	Hay		
-fodder	4	Leaves		
-fodder	5	Straw		
-fodder	6	Sorghum/Maize		
-fodder	7	Concentrate		
-fodder	8	Grasses		
-fodder	9	Other		
-sickness	1	Vaccine animals		
-sickness	2	Referring to animal health center		
-sickness	3	No action		
-sickness	4	Other		
-livelihood_source	1	Farming		green
-livelihood_source	2	Livestock keeping		yellow
-livelihood_source	3	Sale of agricultural/ livestock products		orange
-livelihood_source	4	Other		grey
-product_transport	1	Car		
-product_transport	2	Donkey cart		
-product_transport	3	Camel		
-product_transport	4	Other		
-market_chall	1	Poor roads		
-market_chall	2	Insecurity		
-market_chall	3	Transportation costs		
-market_chall	4	Distance to the markets		
-market_chall	5	Not enough goods		
-mpc_use	1	Buy food		
-mpc_use	2	Pay debts		
-mpc_use	3	Buy clothes		
-mpc_use	4	Buy medicine		
-mpc_use	5	Buy water		
-mpc_use	6	Buy fuel		
-mpc_use	7	Buy cooking gas		
-mpc_use	8	Pay school fees/buy uniform and school material		
-mpc_use	9	Open a business		
-mpc_use	10	Buy livestock		
-mpc_use	11	Buy agricultural inputs (seeds, tools, fodder, fertilizer etc.)		
-mpc_use	12	Savings		
-mpc_use	13	Transport		
-mpc_use	14	Pay rent/shelter		
-mpc_use	15	Give as a gift/loan to neighbor/relative		
-debts_purpose	1	Food		yellow
-debts_purpose	2	Health		red
-debts_purpose	3	Shelter		lightgrey
-debts_purpose	4	Funeral		black
-debts_purpose	5	Wedding		white
-debts_purpose	6	Other		grey
-creditors	1	Family		blue
-creditors	2	Friend		lightred
-creditors	3	Landlord		green
-creditors	4	Bank		Yellow
-creditors	5	Shopkeeper		orange
-creditors	6	Other		grey
-emp	1	Self-employed	1.0	Green
-emp	2	Employed	1.0	Blue
-emp	3	Unemployed	0.0	red
-business	1	Agricultural/farming		Green
-business	2	Livestock keeping		brown
-business	3	Small shop/kiosk		orange
-business	4	Tea shop/cafeteria/hotel		blue
-business	5	Miraa seller		Yellow
-business	6	Other		grey
-sessions	1	1 session	1.0	
-sessions	2	2 sessions	2.0	
-sessions	3	3 sessions	3.0	
-sessions	4	4 sessions	4.0	
-sessions	5	More sessions	5.0	
-nonbreastfed	1	Pregnant		
-nonbreastfed	2	Difficulty breastfeeding		
-nonbreastfed	3	Lack of breastmilk		
-nonbreastfed	4	Introduction of solid foods		
-nonbreastfed	5	Poor nutrition or sick child		
-child_food	1	Milk		
-child_food	2	Water		
-child_food	3	Porridge		
-child_food	4	Maize		
-child_food	5	Other		
-improvement	1	Not at all		
-improvement	2	A little		
-improvement	3	Very much		
-watersource	1	Piped water into dwelling		
-watersource	2	Piped water to yard/plot		
-watersource	3	Public tap/standpipe		
-watersource	4	Tube well/borehole		
-watersource	5	Protected dug well		
-watersource	6	Unprotected dug well		
-watersource	7	Protected spring		
-watersource	8	Unprotected spring		
-watersource	9	Rainwater collection		
-watersource	10	Bottled water		
-watersource	11	Tanker-truck		
-watersource	12	Surface water (river, dam, lake, pond, stream, canal, irrigation channels)		
-watersource	13	Other		
-duration	1	Water available in the compound		
-duration	2	Less than 30 minutes		
-duration	3	30 minutes to 1 hour away		
-duration	4	2 – 6 hours away		
-duration	5	Half a day		
-duration	6	More than half a day		
-treatment	1	Chlorination	2.0	blue
-treatment	2	Boiling water	1.0	lightgreen
-treatment	3	Aqua tabs	2.0	Green
-treatment	4	None	0.0	red
-cleaning_freq	1	Daily	4.0	Green
-cleaning_freq	2	Every 2-3 days	2.0	lightgreen
-cleaning_freq	3	Weekly	1.0	Yellow
-cleaning_freq	4	Monthly	0.5	orange
-cleaning_freq	5	Never	0.0	red
-cleaning_how	1	With soap/detergent	1.0	Green
-cleaning_how	2	With brush only	0.5	Yellow
-cleaning_how	3	With bleach/disinfectant	1.0	blue
-cleaning_how	4	Other	0.0	grey
-diarrhea_cause	1	Dirty hands		
-diarrhea_cause	2	Contaminated water		
-diarrhea_cause	3	Not enough chlorine (without chlorine)		
-diarrhea_cause	4	Too much chlorine		
-diarrhea_cause	5	Contaminated food		
-diarrhea_cause	6	Season / temperature is high or cold		
-diarrhea_cause	7	Open defecation		
-diarrhea_cause	8	Don’t know		
-diarrhea_cause	9	Other		
-diarrhea_prevention	1	By drinking safe water		
-diarrhea_prevention	2	By washing hands		
-diarrhea_prevention	3	By washing hands with soap		
-diarrhea_prevention	4	By covering food / washing fruits / good food hygiene		
-diarrhea_prevention	5	By using clean latrine / toilet		
-diarrhea_prevention	6	Vaccinations		
-diarrhea_prevention	7	Good personal hygiene		
-diarrhea_prevention	8	Don’t know		
-diarrhea_prevention	9	Other		
-diarrhea_remedies	1	Buy drugs		
-diarrhea_remedies	2	Go to the health center or hospital		
-diarrhea_remedies	3	Give ORS		
-diarrhea_remedies	4	Drink clean water in abundance		
-diarrhea_remedies	5	Traditional medicine		
-diarrhea_remedies	6	Do nothing		
-diarrhea_remedies	7	Other		
-toilet	1	Bush	2.0	brown
-toilet	2	Family latrine	0.0	Green
-toilet	3	Communal latrine	1.0	lightgreen
-handwash_times	1	Before preparing meals		
-handwash_times	2	Before serving food		
-handwash_times	3	Before eating		
-handwash_times	4	Before feeding a baby		
-handwash_times	5	After cleaning the baby of the feaces		
-handwash_times	6	After using the toilet		
-handwash_times	7	After handling garbage		
-handwash_times	8	After playing with children		
-handwash_reason	1	To be clean	0.5	Yellow
-handwash_reason	2	To reduces spread/ transmission of disease	2.0	Green
-handwash_reason	3	To be healthy	2.0	blue
-handwash_reason	4	To reduce foul odor	0.0	orange
-handwash_reason	5	Don’t know	0.0	grey
-handwash_item	1	Water alone	1.0	red
-handwash_item	2	With water and soap	3.0	Green
-handwash_item	3	With water and ash	2.0	Yellow
-handwash_item	4	With water and sand	2.0	Yellow
-handwash_item	5	Other	0.0	grey
-nonpurchase_reason	1	Because I don’t have enough money (expensive)		
-nonpurchase_reason	2	I don’t need it		
-nonpurchase_reason	3	The market is too far		
-nonpurchase_reason	4	I don’t feel secure enough to go to the market because of the security situation		
-nonpurchase_reason	5	I cannot move due to my physical condition (persons with disabilities or elder people)		
-nonpurchase_reason	6	Other		
-needs	1	Water points		
-needs	2	Latrines		
-needs	3	Solar streetlight		
-needs	4	Livelihood activities		
-needs	5	Health facilities		
-needs	6	Schools		
-needs	7	Roads		
-needs	8	Community centers		
-needs	9	Child-Friendly Spaces		
-info_type	1	Early warning system and forecasting 		
-info_type	2	Weather reports, 		
-info_type	3	Droughts		
-info_type	4	Flood alerts, 		
-info_type	5	Health advisories,		
-info_type	6	Outbreak of disease e.g., cholera, measles, etc.		
-info_type	7	Livestock vet advice / Management		
-info_type	8	Immunization / vaccinations		
-month2	1	November		
-month2	2	October		
-month2	3	September		
-month2	4	August		
-month2	5	July		
-month2	6	June		
-month2	7	May		
-month2	8	April		
-month2	9	March		
-month2	10	February		
-month2	11	January		
-month2	12	December		
-district	1	At Tuhayta		
-district	2	Hays		
-district	3	Al Khawkhah		
-district	4	Al-Ma’afer		
-district	5	Al-Shamayateen		
-district	6	Al-Mawasit		
-district	7	Al Wazi'iyah		
-district	8	Al  Mokha		
-district	9	Jabal Habashy		
-district	10	Tuban		
-district	11	Al Hawtah		
-district	12	Marib		
-district	other1	Other		
-district	other2	Other		
-district	other3	Other		
-district	other4	Other		
-benficiarytype	fsl	FSL Beneficiary		Green
-benficiarytype	wash	WASH Beneficiary		Blue
-benficiarytype	cashassistance	Emergency cash assistance beneficiary		Yellow
-assistancetype	1	Hygiene Kit 		Blue
-assistancetype	2	Cholera Kit		Pink
-assistancetype	3	COVID-19 kit 		Red
-assistancetype	4	MPCA		Green
-assistancetype	5	EFA		Orange
-assistancetype	6	FSL		Yellow
-assistancetype	7	Other		Grey
-assistancetype	8	Other		Grey
-assistancetype	9	Other		Grey
+list name	name	label	coding	color	colorrgb
+Consent	1	Yes			
+Consent	2	No			
+yesno	1	Yes			
+yesno	2	No			
+testvalid	1	Valid			
+testvalid	2	Test			
+gender	1	Male		Blue	
+gender	2	Female		Pink	
+list	1	List of beneficiaries to be interviewed 			
+list	2	Replacement list			
+phonestatus	1	Phone not ringing			
+phonestatus	2	Phone ringing but not answered.			
+phonestatus	3	Respondent answered but refused the interview 			
+phonestatus	4	Respondent answered and accepted the interview			
+marital	1	Married	1.0	Green	
+marital	2	Single	0.0	Yellow	
+marital	3	Divorced	0.0	Blue	
+marital	4	Widower	0.0	Grey	
+residency	1	IDP	-1.0	Yellow	
+residency	2	Host Community	1.0	Green	
+residency	3	Returnee	0.0	Blue	
+residency	4	Refugee	-2.0	Orange	
+flee_reason	1	Drought			
+flee_reason	2	Lack of food			
+flee_reason	3	Floods			
+flee_reason	4	Conflict			
+flee_reason	5	Lack of water			
+flee_reason	6	Other			
+period	1	1-3 months	1.0	Lightgreen	
+period	2	4-6 months	2.5	Yellow	
+period	3	About 1 year	6.0	orange	
+period	4	1-2 years	9.0	red	
+period	0	0.0	Green		
+period	5	Over 2 years	15.0	darkred	
+governorate	1	Amran			
+governorate	2	Dhale			
+governorate	3	Al Bayda			
+governorate	4	Al Hudaydah			
+governorate	5	Al Jawf			
+governorate	6	Al Mahwit			
+governorate	7	Amanat Al Asima			
+governorate	8	Dhamar			
+governorate	9	Hajjah			
+governorate	10	Ibb			
+governorate	11	Ma'rib			
+governorate	12	Raymah			
+governorate	13	Sa'dah			
+governorate	14	Sana'a			
+governorate	15	Taiz			
+governorate	16	Aden			
+governorate	17	Abyan			
+governorate	18	Al Mahra			
+governorate	19	Hadramaut			
+governorate	20	Socotra			
+governorate	21	Lahj			
+governorate	22	Shabwah			
+disp_times	1	Only one movement from the place of origin and now	1.0	Yellow	
+disp_times		0	0	Green	
+disp_times	2	Two or more movement from the place of origin and now	3.0	Red	
+disp_times	3	Don’t remember	888.0	grey	
+disp_times	4	Don’t want to answer	888.0	grey	
+month	1	January			
+month	2	February			
+month	3	March			
+month	4	April			
+month	5	May			
+month	6	June			
+month	7	July			
+month	8	August			
+month	9	September			
+month	10	October			
+month	11	November			
+month	12	December			
+housing	1	I am living in a concrete house/finished building	4.0	Green	
+housing	2	I am living in an unfinished building	3.0	Lightgreen	
+housing	3	I am hosted in a family with charge	1.0	Orange	
+housing	4	I am hosted freely in a family	2.0	Yellow	
+housing	5	I don’t have shelter / I am living in a public/informal shelter (mosque, school etc)	0.0	Red	
+transport	1	No means of transport	0.0	Red	
+transport	2	Animal means of transport	1.0	Green	
+transport	3	Vehicles	1.0	Blue	
+transport	5	Other	1.0	Grey	
+educ	1	No education	0.0	Red	
+educ	2	Primary	1.0	Orange	
+educ	3	Secondary	2.0	Yellow	
+educ	5	Institution (2 years after secondary)	3.0	Lightgreen	
+educ	6	University or higher education	4.0	Green	
+income_source	1	Land cultivation			
+income_source	2	Livestock			
+income_source	3	Small scale trade			
+income_source	4	Aid			
+income_source	5	Remittance			
+income_source	6	Casual employment			
+income_source	7	Formal employment			
+symptoms	1	Diarrhea			
+symptoms	2	Fever			
+symptoms	3	Nausea			
+symptoms	4	Vomiting			
+symptoms	5	Stomach pain			
+symptoms	6	Headache			
+symptoms	7	Other			
+freq	1	Rarely (once or twice in the past four weeks)	1.0	Yellow	
+freq	2	Sometimes (three to ten times in the past four weeks)	2.0	Orange	
+freq	3	Often (more than ten times in the past four weeks)	3.0	Red	
+freq	4	Never	0.0	Green	
+irrigation	1	Less than once a week			
+irrigation	2	Once a week			
+irrigation	3	Twice a week			
+irrigation	4	Three times a week			
+irrigation	5	Everyday			
+irr_day	1	Once a day			
+irr_day	2	Twice a day			
+irr_day	3	Three times a day			
+free_pay	1	Free			
+free_pay	2	Pay			
+fertiliser	1	Natural fertilizer		green	
+fertiliser	2	Pesticide		grey	
+fertiliser	3	None			
+production	1	Handpumps		Green	
+production	2	Water pump		Blue	
+production	3	Tractor		Yellow	
+production	4	Other		Grey	
+crops	1	Millet		lightgreen	
+crops	2	Corn (maize)		orange	
+crops	3	Wheat		yellow	
+crops	4	Barley		green	
+crops	5	Sorghum		purple	
+crops	6	Myriad vegetables		red	
+crops	7	Other:		grey	
+water_source	1	Spring		green	
+water_source	2	Network		Yellow	
+water_source	3	Borehole		black	
+water_source	4	Stored water from reservoir or pond		blue	
+water_source	5	Wastewater of kitchen		brown	
+water_source	6	No water source		red	
+water_source	7	Other		grey	
+feeding 	1	Sending to public pasture land	Sending to public pasture land	green	[0,120,0]
+feeding 	2	Sending to own pasture land	Sending to own pasture land	lightgreen	[0,255,0]
+feeding 	3	Collecting fodder from own land	Collecting fodder from own land	blue	[0,0,255]
+feeding 	4	Collecting fodder from natural pasture land	Collecting fodder from natural pasture land	lightblue	[100,255,255]
+feeding 	5	Purchasing	Purchasing	yellow	[255,255,0]
+fodder	1	Alfalfa			
+fodder	2	Clover			
+fodder	3	Hay			
+fodder	4	Leaves			
+fodder	5	Straw			
+fodder	6	Sorghum/Maize			
+fodder	7	Concentrate			
+fodder	8	Grasses			
+fodder	9	Other			
+sickness	1	Vaccine animals			
+sickness	2	Referring to animal health center			
+sickness	3	No action			
+sickness	4	Other			
+livelihood_source	1	Farming		green	
+livelihood_source	2	Livestock keeping		yellow	
+livelihood_source	3	Sale of agricultural/ livestock products		orange	
+livelihood_source	4	Other		grey	
+product_transport	1	Car			
+product_transport	2	Donkey cart			
+product_transport	3	Camel			
+product_transport	4	Other			
+market_chall	1	Poor roads			
+market_chall	2	Insecurity			
+market_chall	3	Transportation costs			
+market_chall	4	Distance to the markets			
+market_chall	5	Not enough goods			
+mpc_use	1	Buy food			
+mpc_use	2	Pay debts			
+mpc_use	3	Buy clothes			
+mpc_use	4	Buy medicine			
+mpc_use	5	Buy water			
+mpc_use	6	Buy fuel			
+mpc_use	7	Buy cooking gas			
+mpc_use	8	Pay school fees/buy uniform and school material			
+mpc_use	9	Open a business			
+mpc_use	10	Buy livestock			
+mpc_use	11	Buy agricultural inputs (seeds, tools, fodder, fertilizer etc.)			
+mpc_use	12	Savings			
+mpc_use	13	Transport			
+mpc_use	14	Pay rent/shelter			
+mpc_use	15	Give as a gift/loan to neighbor/relative			
+debts_purpose	1	Food		yellow	
+debts_purpose	2	Health		red	
+debts_purpose	3	Shelter		lightgrey	
+debts_purpose	4	Funeral		black	
+debts_purpose	5	Wedding		white	
+debts_purpose	6	Other		grey	
+creditors	1	Family		blue	
+creditors	2	Friend		lightred	
+creditors	3	Landlord		green	
+creditors	4	Bank		Yellow	
+creditors	5	Shopkeeper		orange	
+creditors	6	Other		grey	
+emp	1	Self-employed	1.0	Green	
+emp	2	Employed	1.0	Blue	
+emp	3	Unemployed	0.0	red	
+business	1	Agricultural/farming		Green	
+business	2	Livestock keeping		brown	
+business	3	Small shop/kiosk		orange	
+business	4	Tea shop/cafeteria/hotel		blue	
+business	5	Miraa seller		Yellow	
+business	6	Other		grey	
+sessions	1	1 session	1.0		
+sessions	2	2 sessions	2.0		
+sessions	3	3 sessions	3.0		
+sessions	4	4 sessions	4.0		
+sessions	5	More sessions	5.0		
+nonbreastfed	1	Pregnant			
+nonbreastfed	2	Difficulty breastfeeding			
+nonbreastfed	3	Lack of breastmilk			
+nonbreastfed	4	Introduction of solid foods			
+nonbreastfed	5	Poor nutrition or sick child			
+child_food	1	Milk			
+child_food	2	Water			
+child_food	3	Porridge			
+child_food	4	Maize			
+child_food	5	Other			
+improvement	1	Not at all			
+improvement	2	A little			
+improvement	3	Very much			
+watersource	1	Piped water into dwelling			
+watersource	2	Piped water to yard/plot			
+watersource	3	Public tap/standpipe			
+watersource	4	Tube well/borehole			
+watersource	5	Protected dug well			
+watersource	6	Unprotected dug well			
+watersource	7	Protected spring			
+watersource	8	Unprotected spring			
+watersource	9	Rainwater collection			
+watersource	10	Bottled water			
+watersource	11	Tanker-truck			
+watersource	12	Surface water (river, dam, lake, pond, stream, canal, irrigation channels)			
+watersource	13	Other			
+duration	1	Water available in the compound			
+duration	2	Less than 30 minutes			
+duration	3	30 minutes to 1 hour away			
+duration	4	2 – 6 hours away			
+duration	5	Half a day			
+duration	6	More than half a day			
+treatment	1	Chlorination	2.0	blue	
+treatment	2	Boiling water	1.0	lightgreen	
+treatment	3	Aqua tabs	2.0	Green	
+treatment	4	None	0.0	red	
+cleaning_freq	1	Daily	4.0	Green	
+cleaning_freq	2	Every 2-3 days	2.0	lightgreen	
+cleaning_freq	3	Weekly	1.0	Yellow	
+cleaning_freq	4	Monthly	0.5	orange	
+cleaning_freq	5	Never	0.0	red	
+cleaning_how	1	With soap/detergent	1.0	Green	
+cleaning_how	2	With brush only	0.5	Yellow	
+cleaning_how	3	With bleach/disinfectant	1.0	blue	
+cleaning_how	4	Other	0.0	grey	
+diarrhea_cause	1	Dirty hands			
+diarrhea_cause	2	Contaminated water			
+diarrhea_cause	3	Not enough chlorine (without chlorine)			
+diarrhea_cause	4	Too much chlorine			
+diarrhea_cause	5	Contaminated food			
+diarrhea_cause	6	Season / temperature is high or cold			
+diarrhea_cause	7	Open defecation			
+diarrhea_cause	8	Don’t know			
+diarrhea_cause	9	Other			
+diarrhea_prevention	1	By drinking safe water			
+diarrhea_prevention	2	By washing hands			
+diarrhea_prevention	3	By washing hands with soap			
+diarrhea_prevention	4	By covering food / washing fruits / good food hygiene			
+diarrhea_prevention	5	By using clean latrine / toilet			
+diarrhea_prevention	6	Vaccinations			
+diarrhea_prevention	7	Good personal hygiene			
+diarrhea_prevention	8	Don’t know			
+diarrhea_prevention	9	Other			
+diarrhea_remedies	1	Buy drugs			
+diarrhea_remedies	2	Go to the health center or hospital			
+diarrhea_remedies	3	Give ORS			
+diarrhea_remedies	4	Drink clean water in abundance			
+diarrhea_remedies	5	Traditional medicine			
+diarrhea_remedies	6	Do nothing			
+diarrhea_remedies	7	Other			
+toilet	1	Bush	2.0	brown	
+toilet	2	Family latrine	0.0	Green	
+toilet	3	Communal latrine	1.0	lightgreen	
+handwash_times	1	Before preparing meals			
+handwash_times	2	Before serving food			
+handwash_times	3	Before eating			
+handwash_times	4	Before feeding a baby			
+handwash_times	5	After cleaning the baby of the feaces			
+handwash_times	6	After using the toilet			
+handwash_times	7	After handling garbage			
+handwash_times	8	After playing with children			
+handwash_reason	1	To be clean	0.5	Yellow	
+handwash_reason	2	To reduces spread/ transmission of disease	2.0	Green	
+handwash_reason	3	To be healthy	2.0	blue	
+handwash_reason	4	To reduce foul odor	0.0	orange	
+handwash_reason	5	Don’t know	0.0	grey	
+handwash_item	1	Water alone	1.0	red	
+handwash_item	2	With water and soap	3.0	Green	
+handwash_item	3	With water and ash	2.0	Yellow	
+handwash_item	4	With water and sand	2.0	Yellow	
+handwash_item	5	Other	0.0	grey	
+nonpurchase_reason	1	Because I don’t have enough money (expensive)			
+nonpurchase_reason	2	I don’t need it			
+nonpurchase_reason	3	The market is too far			
+nonpurchase_reason	4	I don’t feel secure enough to go to the market because of the security situation			
+nonpurchase_reason	5	I cannot move due to my physical condition (persons with disabilities or elder people)			
+nonpurchase_reason	6	Other			
+needs	1	Water points			
+needs	2	Latrines			
+needs	3	Solar streetlight			
+needs	4	Livelihood activities			
+needs	5	Health facilities			
+needs	6	Schools			
+needs	7	Roads			
+needs	8	Community centers			
+needs	9	Child-Friendly Spaces			
+info_type	1	Early warning system and forecasting 			
+info_type	2	Weather reports, 			
+info_type	3	Droughts			
+info_type	4	Flood alerts, 			
+info_type	5	Health advisories,			
+info_type	6	Outbreak of disease e.g., cholera, measles, etc.			
+info_type	7	Livestock vet advice / Management			
+info_type	8	Immunization / vaccinations			
+month2	1	November			
+month2	2	October			
+month2	3	September			
+month2	4	August			
+month2	5	July			
+month2	6	June			
+month2	7	May			
+month2	8	April			
+month2	9	March			
+month2	10	February			
+month2	11	January			
+month2	12	December			
+district	1	At Tuhayta			
+district	2	Hays			
+district	3	Al Khawkhah			
+district	4	Al-Ma’afer			
+district	5	Al-Shamayateen			
+district	6	Al-Mawasit			
+district	7	Al Wazi'iyah			
+district	8	Al  Mokha			
+district	9	Jabal Habashy			
+district	10	Tuban			
+district	11	Al Hawtah			
+district	12	Marib			
+district	other1	Other			
+district	other2	Other			
+district	other3	Other			
+district	other4	Other			
+benficiarytype	fsl	FSL Beneficiary		Green	
+benficiarytype	wash	WASH Beneficiary		Blue	
+benficiarytype	cashassistance	Emergency cash assistance beneficiary		Yellow	
+assistancetype	1	Hygiene Kit		Blue	
+assistancetype	2	Cholera Kit		Pink	
+assistancetype	3	COVID-19 kit		Red	
+assistancetype	4	MPCA		Green	
+assistancetype	5	EFA		Orange	
+assistancetype	6	FSL		Yellow	
+assistancetype	7	Other		Grey	
+diarrhea_remedies 		HC	Heath Center	pink	[255,153,204]
+diarrhea_remedies 		ORS	ORS	lightblue	[204,255,255]
+diarrhea_remedies 		drinkwater	Drink Water	blue	[0,0,255]
+diarrhea_remedies 		drugs	Drugs	Yellow	[255,255,0]
+diarrhea_remedies 		nothing	Nothing	red	[255,0,0]
+diarrhea_remedies 		other	Other	grey	[120,120,120]
+diarrhea_remedies 		tradmed	Traditional Medicine	purple	[120,0,120]
+region		Taiz		Blue	[0,0,255]
+region		Al Hudaydah		Green	[0,255,0]
+region		Marib		Red	[255,0,0]
+region		Lahj		Orange	[255,150,0]
+FCS		Acceptable	Acceptable	Green	[0,255,0]
+FCS		Borderline	Borderline	Yellow	[255,255,0]
+FCS		Poor	Poor	Red	[255,0,0]
+water_transmit_disease		Yes	Yes	Green	[0,255,0]
+water_transmit_disease		No	No	Red	[255,0,0]
+medical_access		Yes	Yes	Green	[0,255,0]
+medical_access		No	No	Red	[255,0,0]
+sickness		Yes	Yes	Green	[0,255,0]
+sickness		No	No	Red	[255,0,0]

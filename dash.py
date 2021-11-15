@@ -29,10 +29,10 @@ def load_data():
 	data = pd.read_csv('viz.csv',sep='\t')
 	correl=pd.read_csv('graphs.csv',sep='\t')
 	questions=pd.read_csv('questions.csv',sep='\t').iloc[0].to_dict()
-	
-	return data,correl,questions
+	codes=pd.read_csv('codes.csv',index_col=None,sep='\t').dropna(how='any',subset=['color'])
+	return data,correl,questions,codes
 
-data,correl,questions=load_data()
+data,correl,questions,codes=load_data()
 
 #st.dataframe(correl)
 #st.write(data.columns)
@@ -116,6 +116,88 @@ def sankey_graph(data,L,height=600,width=1600):
       color = color_links))])
     return fig
 
+def count2(abscisse,ordonnée,dataf,legendtitle='',xaxis=''):
+    
+    agg=dataf[[abscisse,ordonnée]].groupby(by=[abscisse,ordonnée]).aggregate({abscisse:'count'}).unstack().fillna(0)
+    agg2=agg.T/agg.T.sum()
+    agg2=agg2.T*100
+    agg2=agg2.astype(int)
+    x=agg.index
+    
+    if ordonnée.split(' ')[0] in codes['list name'].values:
+        colors_code=codes[codes['list name']==ordonnée.split(' ')[0]].sort_values(['coding'])
+        labels=colors_code['label'].tolist()
+        colors=colors_code['color'].tolist()
+        fig = go.Figure()
+        #st.write(labels,colors)
+        for i in range(len(labels)):
+            if labels[i] in dataf[ordonnée].unique():
+                fig.add_trace(go.Bar(x=x, y=agg[(abscisse,labels[i])], name=labels[i],\
+                           marker_color=colors[i].lower(),customdata=agg2[(abscisse,labels[i])],textposition="inside",\
+                           texttemplate="%{customdata} %",textfont_color="black"))
+        
+    else:
+        fig = go.Figure(go.Bar(x=x, y=agg.iloc[:,0], name=agg.columns.tolist()[0][1],marker_color='green',customdata=agg2.iloc[:,0],textposition="inside",\
+                           texttemplate="%{customdata} %",textfont_color="black"))
+        for i in range(len(agg.columns)-1):
+            fig.add_trace(go.Bar(x=x, y=agg.iloc[:,i+1], name=agg.columns.tolist()[i+1][1],customdata=agg2.iloc[:,i+1],textposition="inside",\
+                           texttemplate="%{customdata} %",textfont_color="black"))
+    
+    fig.update_layout(barmode='relative', \
+                  xaxis={'title':xaxis,'title_font':{'size':18}},\
+                  yaxis={'title':'Persons','title_font':{'size':18}})
+    fig.update_layout(legend_title=legendtitle,legend=dict(orientation="h",
+        yanchor="bottom",
+        y=1.02,
+        xanchor="right",
+        x=1.01,font=dict(size=18),title=dict(font=dict(size=18))
+    ))
+    #fig.update_layout(title_text=title)
+    
+    return fig
+
+def pourcent2(abscisse,ordonnée,dataf,legendtitle='',xaxis=''):
+    
+    agg2=dataf[[abscisse,ordonnée]].groupby(by=[abscisse,ordonnée]).aggregate({abscisse:'count'}).unstack().fillna(0)
+    agg=agg2.T/agg2.T.sum()
+    agg=agg.T.round(2)*100
+    x=agg2.index
+    
+    if ordonnée.split(' ')[0] in codes['list name'].values:
+        colors_code=codes[codes['list name']==ordonnée.split(' ')[0]].sort_values(['coding'])
+        labels=colors_code['label'].tolist()
+        colors=colors_code['color'].tolist()
+        fig = go.Figure()
+        
+        for i in range(len(labels)):
+            if labels[i] in dataf[ordonnée].unique():
+                fig.add_trace(go.Bar(x=x, y=agg[(abscisse,labels[i])], name=labels[i],\
+                           marker_color=colors[i].lower(),customdata=agg2[(abscisse,labels[i])],textposition="inside",\
+                           texttemplate="%{customdata} persons",textfont_color="black"))
+        
+    else:
+        #st.write(agg)
+        #st.write(agg2)
+        fig = go.Figure(go.Bar(x=x, y=agg.iloc[:,0], name=agg.columns.tolist()[0][1],marker_color='green',customdata=agg2.iloc[:,0],textposition="inside",\
+                           texttemplate="%{customdata} persons",textfont_color="black"))
+        for i in range(len(agg.columns)-1):
+            fig.add_trace(go.Bar(x=x, y=agg.iloc[:,i+1], name=agg.columns.tolist()[i+1][1],customdata=agg2.iloc[:,i+1],textposition="inside",\
+                           texttemplate="%{customdata} persons",textfont_color="black"))
+    
+    fig.update_layout(barmode='relative', \
+                  xaxis={'title':xaxis,'title_font':{'size':18}},\
+                  yaxis={'title':'Pourcentage','title_font':{'size':18}})
+    fig.update_layout(legend_title=legendtitle,legend=dict(orientation='h',
+        yanchor="bottom",
+        y=1.02,
+        xanchor="right",
+        x=1.01,font=dict(size=18),title=dict(font=dict(size=18))
+    ))
+    #fig.update_layout(title_text=title)
+    
+    return fig
+
+
 
 
 continues=['C2_Acresowned','A10_boys','A15_income','D3_LH_income','D15_Nearest_Market_km',\
@@ -185,19 +267,20 @@ def main():
 	
 	
 	elif topic=='Display maps':
-		codes=pd.read_csv('codes.csv',index_col=None,sep='\t').dropna(how='any',subset=['color'])
+		
 		continues=pickle.load( open( "cont_feat.p", "rb" ) )
 		cat_cols=pickle.load( open( "cat_cols.p", "rb" ) )
 		maps=pd.read_csv('map.csv',sep='\t')
 		title1.title('Correlations uncovered from the database in relation to geographic information')
 		toshow=correl[correl['variable_x'].fillna('').apply(lambda x: True if 'region' in x else False)]
-		st.write(data['region'].unique())
+		#st.write(data['region'].unique())
 		st.write(toshow)
-		st.write(cat_cols)
+		#st.write(questions)
 		
 		for i in range(len(toshow)):
 			
-			st.title(toshow.iloc[i]['variable_y'])
+			st.title(toshow.iloc[i]['title'])
+			st.write(toshow.iloc[i]['description'])
 						
 			if toshow.iloc[i]['variable_y'] in cat_cols:
 				
@@ -223,183 +306,235 @@ def main():
 				regions=maps[maps['admin'].isin(data['region_origin'].unique().tolist())].copy()
 				df=df[df['region_origin']!='0']
 			else:
-				region=maps[maps['admin'].isin(data['region'].unique().tolist())].copy()
-			st.write(region)
+				regions=maps[maps['admin'].isin(data['region'].unique().tolist())].copy()
+			#st.write(region)
 			
-			st.write(df)
+			#st.write(df)
 			
 			if toshow.iloc[i]['variable_y'] not in continues:
 				
+				
+				
 				a=df.groupby([toshow.iloc[i]['variable_x'],toshow.iloc[i]['variable_y']]).aggregate({'persons':'count'}).unstack()
+						
+				#st.write(toshow.iloc[i]['variable_y']+'##')
 				
+				coding=codes[codes['list name']==toshow.iloc[i]['variable_y']].copy()
 				
-				a=a.merge(region,how='left',left_index=True,right_on='admin').fillna(0)
+				regions_names=regions['admin'].tolist()
+				#st.write(coding)
+				#st.write(codes)
+				#st.write(regions_names)
+				region_color=[codes[codes['label']==k].iloc[0]['colorrgb'].lower() for k in regions_names]
+				regions['fill_color']=np.array(region_color)
 				
-				
+				a=a.merge(regions,how='left',left_index=True,right_on='admin').fillna(0)
+				#st.write(a)
+				#st.write(region)
 				
 				L=[i[1] for i in a if i[0]=='persons']
-				st.write(a)
+				#st.write(L)
+				colors=[coding[coding['label']==L[k]].iloc[0]['colorrgb'].lower() for k in range(len(L))]
+				labels=[coding[coding['label']==L[k]].iloc[0]['coding'] for k in range(len(L))]
+				L=['_'.join(i.split(' ')) for i in L]
+				#st.write(L,colors)
 				a.columns=L+a.columns.tolist()[len(L):]
 				
 				a=a.fillna(0)
+				a['coordinates']=a['coordinates'].apply(lambda x:eval(x))
 				a['centroid']=a['centroid'].apply(lambda x:eval(x))
 				a['lat']=a['centroid'].apply(lambda x:x[0])
 				a['long']=a['centroid'].apply(lambda x:x[1])
 				
 				col1,col2=st.columns([2,1])
 				
-				st.write(a)
-				
-				col1.subheader('coucou')
-						
+				#st.write(a)
+					
+				bars=[pdk.Layer('ColumnLayer',data=a,get_position='centroid',get_elevation='+'.join(L[k:]),\
+					elevation_scale=500,pickable=True,auto_highlight=True,get_fill_color=colors[k],radius=5000) for k in range(len(L))]
+				regions_poly=[pdk.Layer("PolygonLayer",a,id="geojson",opacity=0.5,stroked=False,get_polygon="coordinates",filled=True,\
+    					extruded=True,wireframe=True,get_fill_color="fill_color",get_line_color=[0, 0, 0],pickable=True,)]
+				text=[pdk.Layer("TextLayer",data=a,get_position=['lat','long-0.15'],filled=False,billboard=False,get_line_color=[180, 180, 180],\
+				get_text="admin",get_size=24,get_color=[0,0,0],line_width_min_pixels=1,)]
+					
 				col1.pydeck_chart(pdk.Deck(map_style='mapbox://styles/mapbox/light-v9',\
-				initial_view_state=pdk.ViewState(latitude=14.566,longitude=49.678,zoom=5.5,height=600,pitch=45),\
-				layers=[pdk.Layer('ColumnLayer',data=a,get_position='centroid',get_elevation='+'.join(L[k:]),\
-				elevation_scale=500,pickable=True,auto_highlight=True,get_fill_color=[0, k*255/(len(L)+1), 0],radius=5000) for k in range(len(L))]
+				initial_view_state=pdk.ViewState(latitude=14.566,longitude=44.5,zoom=7,height=900,pitch=60),\
+				layers=bars+text+regions_poly
 				))
 				
 				
+				x=a['admin']
+				fig=go.Figure()
+				for i in range(len(L)):
+					fig.add_trace(go.Bar(x=x, y=a[L[i]], name=labels[i],marker_color='rgb('+colors[i][1:-1]+')'))	
 				
-				
-				
-				fig = go.Figure(go.Bar(x=x, y=df['Poor'], name='Poor',marker_color='red'))
-				fig.add_trace(go.Bar(x=x, y=df['Borderline'], name='Borderline',marker_color='yellow'))
-				fig.add_trace(go.Bar(x=x, y=df['Acceptable'], name='Acceptable',marker_color='green'))
-				fig.update_layout(barmode='relative', \
-	        	          xaxis={'title':'Village'},\
-        		          yaxis={'title':'Persons'}, legend_title_text='FCS Score')
+				fig.update_layout(barmode='relative',yaxis={'title':'Persons'})
 				col2.plotly_chart(fig,use_container_width=True)
-				somme=df['Poor']+df['Borderline']+df['Acceptable']
-				fig2 = go.Figure(go.Bar(x=x, y=df['Poor']/somme, name='Poor',marker_color='red'))
-				fig2.add_trace(go.Bar(x=x, y=df['Borderline']/somme, name='Borderline',marker_color='yellow'))
-				fig2.add_trace(go.Bar(x=x, y=df['Acceptable']/somme, name='Acceptable',marker_color='green'))
-				fig2.update_layout(barmode='relative', \
-	        	          xaxis={'title':'Village'},\
-        		          yaxis={'title':'Pourcentage'}, legend_title_text='FCS Score')
-				col2.plotly_chart(fig2,use_container_width=True)
+				total=a[L[0]].copy()
+				for k in range(1,len(L)):
+					total+=a[L[k]]
+				
+				fig2 = go.Figure()
+				for i in range(len(L)):
+					fig2.add_trace(go.Bar(x=x, y=a[L[i]]/total*100, name=labels[i],marker_color='rgb('+colors[i][1:-1]+')'))	
+				fig2.update_layout(barmode='relative',yaxis={'title':'Pourcentage'})
+				col2.plotly_chart(fig2,autosize=False,use_container_width=True,height=50)
 		
-				st.write('PS: Position of villages is not the real one as I did not have the GPS coordinates for the benficiaries. This was just to show what could be done')
-				
 				
 			
+			elif toshow.iloc[i]['variable_x']!='region_origin':
+				
+				
+				#st.write(df)
+				
+				col1,col2=st.columns([2,1])
+				
+				
+					
+				regions_poly=[pdk.Layer("PolygonLayer",a,id="geojson",opacity=0.5,stroked=False,get_polygon="coordinates",filled=True,\
+    					extruded=True,wireframe=True,get_fill_color="fill_color",get_line_color=[0, 0, 0],pickable=True,)]
+				text=[pdk.Layer("TextLayer",data=a,get_position=['lat','long'],filled=False,billboard=False,get_line_color=[180, 180, 180],\
+				get_text="admin",get_size=24,get_color=[0,0,0],line_width_min_pixels=1,)]
+					
+				col1.pydeck_chart(pdk.Deck(map_style='mapbox://styles/mapbox/light-v9',\
+				initial_view_state=pdk.ViewState(latitude=14.566,longitude=44.5,zoom=7,height=900,pitch=60),\
+				layers=text+regions_poly
+				))
+				
+				fig = px.box(df, y='region', x='pay_water',points='all')
+				fig.update_layout(yaxis={'title':None},xaxis={'title':'Price of water'})
+				col2.plotly_chart(fig,use_container_width=True)
+				
 			else:
-				pass
-			
-			
+				#st.write(df)
+				
+				regions['coordinates']=regions['coordinates'].apply(lambda x:eval(x))
+				regions['centroid']=regions['centroid'].apply(lambda x:eval(x))
+				regions['lat']=regions['centroid'].apply(lambda x:x[0])
+				regions['long']=regions['centroid'].apply(lambda x:x[1])
+				#st.write(regions)
+					
+				regions_poly=[pdk.Layer("PolygonLayer",regions,id="geojson",opacity=0.5,stroked=False,get_polygon="coordinates",filled=True,\
+    					extruded=True,wireframe=True,get_fill_color="fill_color",get_line_color=[0, 0, 0],pickable=True,)]
+				text=[pdk.Layer("TextLayer",data=regions,get_position=['lat','long'],filled=False,billboard=False,get_line_color=[180, 180, 180],\
+				get_text="admin",get_size=15,get_color=[0,0,0],line_width_min_pixels=1,)]
+					
+				st.pydeck_chart(pdk.Deck(map_style='mapbox://styles/mapbox/light-v9',\
+				initial_view_state=pdk.ViewState(latitude=14.566,longitude=46.5,zoom=6,height=400,pitch=40),\
+				layers=text+regions_poly
+				))
+				
+				fig = px.box(df, x='region_origin', y='CSI',points='all')
+				fig.update_layout(yaxis={'title':None},xaxis={'title':'Price of water'})
+				st.plotly_chart(fig,use_container_width=True,height=300)
+				
 		
 	elif topic=='Display correlations':	
-		st.markdown("""---""")
+		
+		continues=pickle.load( open( "cont_feat.p", "rb" ) )
+		cat_cols=pickle.load( open( "cat_cols.p", "rb" ) )
+		
+				
+		quest=correl[correl['variable_x'].fillna('').apply(lambda x: True if 'region' not in x else False)]
+		
+		#st.write(quest)
+		#st.write(codes)
+		#st.write(cat_cols)
+		
+		#st.write(data['assistancetype'].value_counts())
+							
+		for i in range(len(quest)):
 			
-		st.header(questions[var])
-							
-		k=0
+			st.markdown("""---""")		
+			#st.write(quest.iloc[i]['variable_x']+'##')
+			#st.write('in cat cols: ',quest.iloc[i]['variable_x'] in cat_cols)
 			
-		for correlation in correl[correl['Variables']==var]['Correl'].unique():
-					
-					
-					
-			if correlation in specific:
-						
-				df=pd.DataFrame(columns=['Challenge','Acres Owned','Chall'])
-				dico={'D17_challenge_roads':'Roads','D17_challenge_Insecurity':'Insecurity',\
-      				'D17_challenge_transpCost':'Transportation Costs','D17_challenge_distance':'Distance',\
-      				'D17_challenge_notenough':'Not enough goods', 'D17_challenge_Other':'Other'}
-				for i in dico:
-					a=data[[i,'C2_Acresowned']].copy()
-					a=a[a[i].isin(['Yes','No'])]
-							
-					a.columns=['Challenge','Acres Owned']
-					a['Chall']=a['Challenge'].apply(lambda x: dico[i])
-					df=df.append(a)
-					#st.write(df)
-					fig = px.box(df, x="Chall", y="Acres Owned",color='Challenge')
-					fig.update_layout(barmode='relative',xaxis={'title':'Challenges for accessing market'},\
-										yaxis_title='Acres owned',width=800,height=450)
-					if k%2==0:
-						col1, col2, col3 = st.columns([4,1,4])
-							
-						col1.write(correl[(correl['Variables']==var) & (correl['Correl']==correlation)]['Description'].iloc[0])
-						col1.plotly_chart(fig,use_container_width=True)
-					else:
-							
-						col3.write(correl[(correl['Variables']==var) & (correl['Correl']==correlation)]['Description'].iloc[0])
-						col3.plotly_chart(fig,use_container_width=True)
-						
-					k+=1
-						
+			if quest.iloc[i]['variable_x'] in cat_cols or quest.iloc[i]['variable_y'] in cat_cols:
+				
+				if quest.iloc[i]['variable_x'] in cat_cols:
+					cat,autre=quest.iloc[i]['variable_x'],quest.iloc[i]['variable_y']
 				else:
+					cat,autre=quest.iloc[i]['variable_y'],quest.iloc[i]['variable_x']
+				#st.write('cat: ',cat,' et autre: ',autre)
 						
-					df=data[[correlation,var]].copy()
+				df=pd.DataFrame(columns=[cat,autre])
+				
+				catcols=[j for j in data.columns if cat in j]
+				cats=[' '.join(i.split(' ')[1:])[:57] for i in catcols]
+				
+				for n in range(len(catcols)):
+					ds=data[[catcols[n],autre]].copy()
+					ds=ds[ds[catcols[n]]==1]
+					ds[catcols[n]]=ds[catcols[n]].apply(lambda x: cats[n])
+					ds.columns=[cat,autre]
+					df=df.append(ds)
+				df['persons']=np.ones(len(df))		
+				#st.write(df)		
+				
+				#st.write(quest.iloc[i]['graphtype'])
+						
+									
+			else:	
+				df=data[[quest.iloc[i]['variable_x'],quest.iloc[i]['variable_y']]].copy()
+				df['persons']=np.ones(len(df))
+				
+			if quest.iloc[i]['graphtype']=='sunburst':
+				st.subheader(quest.iloc[i]['title'])
+				fig = px.sunburst(df.fillna(''), path=[quest.iloc[i]['variable_x'], quest.iloc[i]['variable_y']], values='persons',color=quest.iloc[i]['variable_y'])
+				#fig.update_layout(title_text=quest.iloc[i]['variable_x'] + ' and ' +quest.iloc[i]['variable_y'],font=dict(size=20))
+				st.plotly_chart(fig,size=1000)
+				
+			elif quest.iloc[i]['graphtype']=='treemap':
 					
-					if var in continues:
-						if correlation in continues:
-							fig = px.scatter(df, x=var, y=correlation)
-							fig.update_layout(xaxis={\
-							'title':questions[var]},yaxis_title=questions[correlation],width=1500,height=800)
-						else:
-							fig = px.box(df, x=correlation, y=var,points='all')
-							fig.update_traces(marker_color='green')
-							fig.update_layout(barmode='relative', \
-        	      	  				xaxis={'title':questions[correlation]},\
-        	      	 				yaxis_title=questions[var],width=800,height=450)
-							
-						if k%2==0:
-							col1, col2, col3 = st.columns([4,1,4])
-								
-							col1.write(correl[(correl['Variables']==var) & (correl['Correl']==correlation)]['Description'].iloc[0])
-							col1.plotly_chart(fig,use_container_width=True)
-						else:
-								
-							col3.write(correl[(correl['Variables']==var) & (correl['Correl']==correlation)]['Description'].iloc[0])
-							col3.plotly_chart(fig,use_container_width=True)
-						k+=1
-							
-					else:
-						if correlation in continues:
-							fig = px.box(df, x=var, y=correlation,points='all')
-							fig.update_traces(marker_color='green')
-							fig.update_layout(barmode='relative',xaxis={'title':questions[var]},\
-									yaxis_title=questions[correlation],width=800,height=450)
-							if k%2==0:
-								col1, col2, col3 = st.columns([4,1,4])
+				st.subheader(quest.iloc[i]['title'])
+				fig=px.treemap(df, path=[quest.iloc[i]['variable_x'], quest.iloc[i]['variable_y']], values='persons')
+				#fig.update_layout(title_text=quest.iloc[i]['title'],font=dict(size=20))
+				
+				st.plotly_chart(fig,use_container_width=True)
+				st.write(quest.iloc[i]['description'])
+				k=0
+				
+					
+			elif quest.iloc[i]['graphtype']=='violin':
+					
+				st.subheader(quest.iloc[i]['title'])
+				col1,col2=st.columns([1,1])
+				fig = go.Figure()
+				
+				if quest.iloc[i]['variable_x'].split(' ')[0] in codes['list name'].unique():
+					categs = codes[codes['list name']==quest.iloc[i]['variable_x'].split(' ')[0]].sort_values(by='coding')['label'].tolist()				
+					
+				else:
+					categs = df[quest.iloc[i]['variable_x']].unique()
+				for categ in categs:
+				    fig.add_trace(go.Violin(x=df[quest.iloc[i]['variable_x']][df[quest.iloc[i]['variable_x']] == categ],
+                            		y=df[quest.iloc[i]['variable_y']][df[quest.iloc[i]['variable_x']] == categ],
+                            		name=categ,
+                            		box_visible=True,
+                           			meanline_visible=True,points="all",))
+				fig.update_layout(showlegend=False)
+				fig.update_yaxes(range=[-0.1, df[quest.iloc[i]['variable_y']].max()+1],title=quest.iloc[i]['ytitle'])
+					
+				st.plotly_chart(fig,use_container_width=True)
+				st.write(quest.iloc[i]['description'])
 									
-								col1.write(correl[(correl['Variables']==var) & (correl['Correl']==correlation)]['Description'].iloc[0])
-								col1.plotly_chart(fig,use_container_width=True)
-							else:
-									
-								col3.write(correl[(correl['Variables']==var) & (correl['Correl']==correlation)]['Description'].iloc[0])
-								col3.plotly_chart(fig,use_container_width=True)
-							k+=1
-                 				
-						else:
-							agg=df[[correlation,var]].groupby(by=[var,correlation]).aggregate({var:'count'}).unstack()
-							x=[i for i in agg.index]
-							fig = go.Figure(go.Bar(x=x, y=agg.iloc[:,0], name=agg.columns.tolist()[0][1],marker_color='green'))
-							for i in range(len(agg.columns)-1):
-    								fig.add_trace(go.Bar(x=x, y=agg.iloc[:,i+1], name=agg.columns.tolist()[i+1][1]))
-							fig.update_layout(barmode='relative', \
-                	  				xaxis={'title':questions[var]},\
-       	        	  			yaxis={'title':'Persons'}, legend_title_text=None)
-							
-							agg=df[[correlation,var]].groupby(by=[var,correlation]).aggregate({var:'count'}).unstack()
-							agg=agg.T/agg.T.sum()
-							agg=agg.T*100
-							x=[i for i in agg.index]
-							fig2 = go.Figure(go.Bar(x=x, y=agg.iloc[:,0], name=agg.columns.tolist()[0][1],marker_color='green'))
-							for i in range(len(agg.columns)-1):
-    								fig2.add_trace(go.Bar(x=x, y=agg.iloc[:,i+1], name=agg.columns.tolist()[i+1][1]))
-							fig2.update_layout(barmode='relative', \
-        	        	  			xaxis={'title':questions[var]},\
-        	        	 				yaxis={'title':'Pourcentages'}, legend_title_text=None)
-								
-							st.write(correl[(correl['Variables']==var) & (correl['Correl']==correlation)]['Description'].iloc[0])
-								
-							col1, col2, col3 = st.columns([4,1,4])
-								
-							col1.plotly_chart(fig,use_container_width=True)
-							col3.plotly_chart(fig2,use_container_width=True)
-							k=0
-						
+			elif quest.iloc[i]['graphtype']=='bar':
+					
+				st.subheader(quest.iloc[i]['title'])
+				
+				col1,col2=st.columns([1,1])
+
+				fig1=count2(quest.iloc[i]['variable_x'],quest.iloc[i]['variable_y'],\
+				df,legendtitle=quest.iloc[i]['legendtitle'],xaxis=quest.iloc[i]['xtitle'])
+				fig1.update_layout(showlegend=True)
+				col1.plotly_chart(fig1,use_container_width=True)
+					
+				fig2=pourcent2(quest.iloc[i]['variable_x'],quest.iloc[i]['variable_y'],\
+				df,legendtitle=quest.iloc[i]['legendtitle'],xaxis=quest.iloc[i]['xtitle'])
+				#fig2.update_layout(title_text=quest.iloc[i]['title'],font=dict(size=20),showlegend=True,xaxis_tickangle=45)
+				col2.plotly_chart(fig2,use_container_width=True)
+				st.write(quest.iloc[i]['description'])
+				#st.write(df)
 						
 	elif topic=='Display Wordclouds':
 		title2.title('Wordclouds for open questions')
