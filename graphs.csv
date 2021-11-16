@@ -8,8 +8,8 @@ income_source	income_per_member	Land cultivators and formal employer have the lo
 income_source	debt_level	Those living from livestock have higher level of debt	level of cumulative debt			Level of debt per main source of income	violin
 sickness 	husband_train	Those having received husbandry training are more likely to do some sickness prevention for their livestock.	What steps do you take to prevent your livestock from getting sick?		Did you receive any training on animal husbandry?	Prevention of livestock sickness according to participation to husbandry training	bar
 region	feeding 	In Al Hudaydah people seems to mainly purchase fodder for cattles	Source of livelihood				map
-benficiarytype	FCS	WASH beneficiaries are among the most vulnerables according to FCS. This probably shows the good impact of FSL and cash activities			FCS category	FCS Score according to beneficiary type	bar
-livelihood_source	FCS	Those with no source of livelihood are particularly vulnerable			FCS category	FCS Score according to main source of income	bar
+benficiarytype	FCS	WASH beneficiaries are among the most vulnerables according to FCS. This probably shows the good impact of FSL and cash activities	  		FCS category	FCS Score according to beneficiary type	bar
+livelihood_source	FCS	Those with no source of livelihood are particularly vulnerable	  		FCS category	FCS Score according to main source of income	bar
 region	FCS	In Lhaj beneficiaries are more vulnerable although most are host. 					bar
 use_latrine	FCS	Those who do not use latrine seems to have lower FCS Scores.	Did you or any other member of your household <br> use a latrine/toilet the last time you defecated?		FCS category	FCS Score according to use of latrine	bar
 gender resp	educ	Male are much more educated than female	Gender of the respondent		 	Education level per gender	bar
@@ -20,16 +20,16 @@ disp_times	CSI	The more people have been displaced the more likely they have hig
 feeding 	CSI	Surprisingly it seems that those purchasing fodder have  higher CSI index. This is probably because they do not have other choice (availability of land to pasture maybe)		CSI index		CSI index according to how people manage to feed their animals	violin
 fodder 	CSI	Those with higher CSI index tneds to feed their animal mainly with Maize and Alfalfa		CSI index		CSI index according to main fodders	violin
 region_origin	CSI	IDPs from Taiz seem particularly vulnerable		CSI index		CSI index according to region of origin	violin
-livingcond_adeq	benficiarytype	Over 90 % of WASH beneficiaries do not think their living condition is adequate			Do you believe the living conditions in your settlements are adequate?	Feeling to live in adequate conditions according to type of beneficiaries	bar
-assistancetype	water_transmit_disease	Surprisingly over 80 % of those having received hygiene kits do not believe water can transmit diseases. This tends to show a lack of sensitization after distribution of NFI kits.			Do you think water can transmit diseases?	Believe water can transmit disease according to type of assistance received	bar
-MAHFP 	MAHFP			MAHFP Score		MAHFP according to month when it was difficult	violin
-MAHFP 	CSI			CSI index		CSI according to month when it was difficult	violin
-MAHFP 	FCS	If we look at the different scores we can see that for the most vulnerables the month when it really start to become difficult to eat is December			FCS category	FCS according to month when it was difficult	bar
-Malnurished_children	CSI			CSI index		CSI index according to presence of malnurished children	violin
-Malnurished_children	freq worryfood	Household with malnourished children tend to worry more about food availability and have higher CSI index				How often the household worries that there would not have enough food to eat according to presence of manurished children	bar
+livingcond_adeq	benficiarytype	Over 90 % of WASH beneficiaries do not think their living condition is adequate	Do you believe the living conditions in your settlements are adequate?		  	Feeling to live in adequate conditions according to type of beneficiaries	bar
+assistancetype	water_transmit_disease	Surprisingly over 80 % of those having received hygiene kits do not believe water can transmit diseases. This tends to show a lack of sensitization after distribution of NFI kits.	Assistance received		Do you think water can transmit diseases?	Believe water can transmit disease according to type of assistance received	bar
+MAHFP 	MAHFP	 		MAHFP Score		MAHFP according to month when it was difficult	violin
+MAHFP 	CSI	 		CSI index		CSI according to month when it was difficult	violin
+MAHFP 	FCS	If we look at the different scores we can see that for the most vulnerables the month when it really start to become difficult to eat is December	Months in the past 12 months during which you did not have enough food to meet your family’s needs		FCS category	FCS according to month when it was difficult	bar
+Malnurished_children	CSI	 		CSI index		CSI index according to presence of malnurished children	violin
+Malnurished_children	freq worryfood	Household with malnourished children tend to worry more about food availability and have higher CSI index	Do you have malnourished or undernourished person(s) in your household?			How often the household worries that there would not have enough food to eat according to presence of manurished children	bar
 hosting	CSI	Household with malnourished children tend to worry more about food availability and have higher CSI index		CSI index		CSI index according to presence of hosts in the household	violin
-hosting	freq worryfood				  	How often the household worries that there would not have enough food to eat according to presence of hosts in the household	bar
+hosting	freq worryfood	 	Are you currently hosting other families or persons?		  	How often the household worries that there would not have enough food to eat according to presence of hosts in the household	bar
 main_need	CSI	Those hosting people are globally more vulnerable than those who do not (as per CSI and FCS)		CSI index		CSI index distribution per main need identified	violin
-main_need	FCS	The main needs identified by the most vulnerable beneficiaries are latrines, health and waterpoints			FCS category	FCS according to main need identified	bar
-part_mother_group	CSI			CSI index		CSI index distribution according to being part of mother supporting group	violin
-part_mother_group	FCS	Members of Mother Supporting Groups seems to have higher better FCS though higher CSI			FCS category	FCS according to being part of mother supporting group	bar
+main_need	FCS	The main needs identified by the most vulnerable beneficiaries are latrines, health and waterpoints	What is the main need in your settlement?		FCS category	FCS according to main need identified	bar
+part_mother_group	CSI	 		CSI index		CSI index distribution according to being part of mother supporting group	violin
+part_mother_group	FCS	Members of Mother Supporting Groups seems to have higher better FCS though higher CSI	Are you part of a mother support group?		FCS category	FCS according to being part of mother supporting group	bar
