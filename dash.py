@@ -28,9 +28,11 @@ st.set_page_config(layout="wide")
 def load_data():
 	data = pd.read_csv('viz.csv',sep='\t')
 	correl=pd.read_csv('graphs.csv',sep='\t')
-	questions=pd.read_csv('questions.csv',sep='\t').iloc[0].to_dict()
+	questions=pd.read_csv('questions.csv',sep='\t')
+	questions.drop([i for i in questions.columns if 'Unnamed' in i],axis=1,inplace=True)
+	quest=questions.iloc[3].to_dict()
 	codes=pd.read_csv('codes.csv',index_col=None,sep='\t').dropna(how='any',subset=['color'])
-	return data,correl,questions,codes
+	return data,correl,quest,codes
 
 data,correl,questions,codes=load_data()
 
@@ -42,8 +44,8 @@ def sankey_graph(data,L,height=600,width=1600):
     """ sankey graph de data pour les catégories dans L dans l'ordre et 
     de hauter et longueur définie éventuellement"""
     
-    nodes_colors=["blue","green","grey",'yellow',"coral"]
-    link_colors=["lightblue","lightgreen","lightgrey","lightyellow","lightcoral"]
+    nodes_colors=["blue","green","grey",'yellow',"coral",'darkviolet','saddlebrown','darkblue','brown']
+    link_colors=["lightblue","limegreen","lightgrey","lightyellow","lightcoral",'plum','sandybrown','lightsteelblue','rosybrown']
     
     
     labels=[]
@@ -54,6 +56,8 @@ def sankey_graph(data,L,height=600,width=1600):
         lab=data[cat].unique().tolist()
         lab.sort()
         labels+=lab
+    
+    #st.write(labels)
     
     for i in range(len(data[L[0]].unique())): #j'itère sur mes premieres sources
     
@@ -91,12 +95,12 @@ def sankey_graph(data,L,height=600,width=1600):
         value.append(len(df[df[L[k+1]]==labels[triplet[2]]]))
         
     color_nodes=nodes_colors[:len(data[L[0]].unique())]+["black" for i in range(len(labels)-len(data[L[0]].unique()))]
-    #print(color_nodes)
+    #st.write(color_nodes)
     color_links=[]
     for i in range(len(data[L[0]].unique())):
     	color_links+=[link_colors[i] for couleur in range(iteration)]
-    #print(L,len(L),iteration)
-    #print(color_links)
+    #st.write(L,len(L),iteration)
+    #st.write(color_links)
    
    
     fig = go.Figure(data=[go.Sankey(
@@ -116,12 +120,18 @@ def sankey_graph(data,L,height=600,width=1600):
       color = color_links))])
     return fig
 
+
 def count2(abscisse,ordonnée,dataf,legendtitle='',xaxis=''):
     
     agg=dataf[[abscisse,ordonnée]].groupby(by=[abscisse,ordonnée]).aggregate({abscisse:'count'}).unstack().fillna(0)
     agg2=agg.T/agg.T.sum()
     agg2=agg2.T*100
     agg2=agg2.astype(int)
+    
+    if abscisse=='MAHFP ':
+    	agg=agg.reindex(['january','february','march','april','may','june','july','august','september','october','november','december'])
+    	agg2=agg2.reindex(['january','february','march','april','may','june','july','august','september','october','november','december'])
+    
     x=agg.index
     
     if ordonnée.split(' ')[0] in codes['list name'].values:
@@ -431,280 +441,182 @@ def main():
 		
 	elif topic=='Display correlations':	
 		
+		title1.title('Main correlations uncovered from the database')
 		continues=pickle.load( open( "cont_feat.p", "rb" ) )
 		cat_cols=pickle.load( open( "cat_cols.p", "rb" ) )
 		
 				
-		quest=correl[correl['variable_x'].fillna('').apply(lambda x: True if 'region' not in x else False)]
+		quests=correl[correl['variable_x'].fillna('').apply(lambda x: True if 'region' not in x else False)]
 		
 		#st.write(quest)
 		#st.write(codes)
 		#st.write(cat_cols)
 		
 		#st.write(data['assistancetype'].value_counts())
+		
+			
 							
-		for i in range(len(quest)):
+		for i in quests['variable_x'].unique():
 			
+			k=0
 			st.markdown("""---""")		
-			#st.write(quest.iloc[i]['variable_x']+'##')
-			#st.write('in cat cols: ',quest.iloc[i]['variable_x'] in cat_cols)
 			
-			if quest.iloc[i]['variable_x'] in cat_cols or quest.iloc[i]['variable_y'] in cat_cols:
+			quest=quests[quests['variable_x']==i]
+			
+			#st.write(quest)
+			
+			if len(quest)>1 or 'bar' in quest['graphtype'].unique():
+				col1,col2=st.columns([1,1])
+			
+			for i in range(len(quest)):
 				
-				if quest.iloc[i]['variable_x'] in cat_cols:
-					cat,autre=quest.iloc[i]['variable_x'],quest.iloc[i]['variable_y']
-				else:
-					cat,autre=quest.iloc[i]['variable_y'],quest.iloc[i]['variable_x']
-				#st.write('cat: ',cat,' et autre: ',autre)
+				
+				
+				#st.write(quest.iloc[i]['variable_x']+'##')
+				#st.write('in cat cols: ',quest.iloc[i]['variable_x'] in cat_cols)
+				
+			
+								
+			
+				if quest.iloc[i]['variable_x'] in cat_cols or quest.iloc[i]['variable_y'] in cat_cols:
+					
+					if quest.iloc[i]['variable_x'] in cat_cols:
+						cat,autre=quest.iloc[i]['variable_x'],quest.iloc[i]['variable_y']
+					else:
+						cat,autre=quest.iloc[i]['variable_y'],quest.iloc[i]['variable_x']
+					#st.write('cat: ',cat,' et autre: ',autre)
 						
-				df=pd.DataFrame(columns=[cat,autre])
+					df=pd.DataFrame(columns=[cat,autre])
+					
+					catcols=[j for j in data.columns if cat in j]
+					cats=[' '.join(i.split(' ')[1:])[:57] for i in catcols]
 				
-				catcols=[j for j in data.columns if cat in j]
-				cats=[' '.join(i.split(' ')[1:])[:57] for i in catcols]
-				
-				for n in range(len(catcols)):
-					ds=data[[catcols[n],autre]].copy()
-					ds=ds[ds[catcols[n]]==1]
-					ds[catcols[n]]=ds[catcols[n]].apply(lambda x: cats[n])
-					ds.columns=[cat,autre]
-					df=df.append(ds)
-				df['persons']=np.ones(len(df))		
-				#st.write(df)		
-				
-				#st.write(quest.iloc[i]['graphtype'])
+					for n in range(len(catcols)):
+						ds=data[[catcols[n],autre]].copy()
+						ds=ds[ds[catcols[n]]==1]
+						ds[catcols[n]]=ds[catcols[n]].apply(lambda x: cats[n])
+						ds.columns=[cat,autre]
+						df=df.append(ds)
+					df['persons']=np.ones(len(df))		
+					#st.write(df)		
+					
+					#st.write(quest.iloc[i]['graphtype'])
 						
 									
-			else:	
-				df=data[[quest.iloc[i]['variable_x'],quest.iloc[i]['variable_y']]].copy()
-				df['persons']=np.ones(len(df))
+				else:	
+					df=data[[quest.iloc[i]['variable_x'],quest.iloc[i]['variable_y']]].copy()
+					df['persons']=np.ones(len(df))
 				
-			if quest.iloc[i]['graphtype']=='sunburst':
-				st.subheader(quest.iloc[i]['title'])
-				fig = px.sunburst(df.fillna(''), path=[quest.iloc[i]['variable_x'], quest.iloc[i]['variable_y']], values='persons',color=quest.iloc[i]['variable_y'])
-				#fig.update_layout(title_text=quest.iloc[i]['variable_x'] + ' and ' +quest.iloc[i]['variable_y'],font=dict(size=20))
-				st.plotly_chart(fig,size=1000)
-				
-			elif quest.iloc[i]['graphtype']=='treemap':
+				if quest.iloc[i]['graphtype']=='sunburst':
+					st.subheader(quest.iloc[i]['title'])
+					fig = px.sunburst(df.fillna(''), path=[quest.iloc[i]['variable_x'], quest.iloc[i]['variable_y']], 	values='persons',color=quest.iloc[i]['variable_y'])
+					#fig.update_layout(title_text=quest.iloc[i]['variable_x'] + ' and ' +quest.iloc[i]['variable_y'],font=dict(size=20))
+					st.plotly_chart(fig,size=1000)
 					
-				st.subheader(quest.iloc[i]['title'])
-				fig=px.treemap(df, path=[quest.iloc[i]['variable_x'], quest.iloc[i]['variable_y']], values='persons')
-				#fig.update_layout(title_text=quest.iloc[i]['title'],font=dict(size=20))
+					
+					
 				
-				st.plotly_chart(fig,use_container_width=True)
-				st.write(quest.iloc[i]['description'])
-				k=0
+				elif quest.iloc[i]['graphtype']=='treemap':
+					
+					st.subheader(quest.iloc[i]['title'])
+					fig=px.treemap(df, path=[quest.iloc[i]['variable_x'], quest.iloc[i]['variable_y']], values='persons')
+					#fig.update_layout(title_text=quest.iloc[i]['title'],font=dict(size=20))
+					
+					st.plotly_chart(fig,use_container_width=True)
+					st.write(quest.iloc[i]['description'])
+					
 				
 					
-			elif quest.iloc[i]['graphtype']=='violin':
+				elif quest.iloc[i]['graphtype']=='violin':
 					
-				st.subheader(quest.iloc[i]['title'])
-				col1,col2=st.columns([1,1])
-				fig = go.Figure()
+					
+					
+					fig = go.Figure()
 				
-				if quest.iloc[i]['variable_x'].split(' ')[0] in codes['list name'].unique():
-					categs = codes[codes['list name']==quest.iloc[i]['variable_x'].split(' ')[0]].sort_values(by='coding')['label'].tolist()				
+					if quest.iloc[i]['variable_x'].split(' ')[0] in codes['list name'].unique():
+						categs = codes[codes['list name']==quest.iloc[i]['variable_x'].split(' ')[0]].sort_values(by='coding')['label'].tolist()				
 					
-				else:
-					categs = df[quest.iloc[i]['variable_x']].unique()
-				for categ in categs:
-				    fig.add_trace(go.Violin(x=df[quest.iloc[i]['variable_x']][df[quest.iloc[i]['variable_x']] == categ],
-                            		y=df[quest.iloc[i]['variable_y']][df[quest.iloc[i]['variable_x']] == categ],
-                            		name=categ,
-                            		box_visible=True,
+					else:
+						categs = df[quest.iloc[i]['variable_x']].unique()
+					for categ in categs:
+					    fig.add_trace(go.Violin(x=df[quest.iloc[i]['variable_x']][df[quest.iloc[i]['variable_x']] == categ],
+	                            		y=df[quest.iloc[i]['variable_y']][df[quest.iloc[i]['variable_x']] == categ],
+	                            		name=categ,
+	                            		box_visible=True,
                            			meanline_visible=True,points="all",))
-				fig.update_layout(showlegend=False)
-				fig.update_yaxes(range=[-0.1, df[quest.iloc[i]['variable_y']].max()+1],title=quest.iloc[i]['ytitle'])
+					fig.update_layout(showlegend=False)
+					fig.update_yaxes(range=[-0.1, df[quest.iloc[i]['variable_y']].max()+1],title=quest.iloc[i]['ytitle'])
+					k+=1
 					
-				st.plotly_chart(fig,use_container_width=True)
-				st.write(quest.iloc[i]['description'])
-									
-			elif quest.iloc[i]['graphtype']=='bar':
-					
-				st.subheader(quest.iloc[i]['title'])
-				
-				col1,col2=st.columns([1,1])
-
-				fig1=count2(quest.iloc[i]['variable_x'],quest.iloc[i]['variable_y'],\
-				df,legendtitle=quest.iloc[i]['legendtitle'],xaxis=quest.iloc[i]['xtitle'])
-				fig1.update_layout(showlegend=True)
-				col1.plotly_chart(fig1,use_container_width=True)
-					
-				fig2=pourcent2(quest.iloc[i]['variable_x'],quest.iloc[i]['variable_y'],\
-				df,legendtitle=quest.iloc[i]['legendtitle'],xaxis=quest.iloc[i]['xtitle'])
-				#fig2.update_layout(title_text=quest.iloc[i]['title'],font=dict(size=20),showlegend=True,xaxis_tickangle=45)
-				col2.plotly_chart(fig2,use_container_width=True)
-				st.write(quest.iloc[i]['description'])
-				#st.write(df)
+					if len(quest[quest['graphtype']=='violin'])==2:
 						
-	elif topic=='Display Wordclouds':
-		title2.title('Wordclouds for open questions')
-		df=data[[i for i in data.columns if 'text' in i]].copy()
-		#st.write(df)
-		feature=st.sidebar.selectbox('Select the question for which you would like to visualize wordclouds of answers',[questions[i] for i in df.columns])	
-		var=[i for i in questions if questions[i]==feature][0]
-		
-		col1, col3 = st.columns([6,3])
-		col1.title('Wordcloud from question:')
-		col1.title(feature)
-				
-		x, y = np.ogrid[:300, :300]
-		mask = ((x - 150)) ** 2 + ((y - 150)/1.4) ** 2 > 130 ** 2
-		mask = 255 * mask.astype(int)
-		corpus=' '.join(df[var].apply(lambda x:'' if x=='0' else x))
-		corpus=re.sub('[^A-Za-z ]',' ', corpus)
-		corpus=re.sub('\s+',' ', corpus)
-		corpus=corpus.lower()
-		
-		col3.title('')
-		col3.title('')
-		col3.title('')
-		sw=col3.multiselect('Select words you would like to remove from the wordcloud', [i[0] for i in Counter(corpus.split(' ')).most_common()[:20] if i[0] not in STOPWORDS])
-		
-		if corpus==' ':
-    			corpus='No_response'
-		else:
-			corpus=' '.join([i for i in corpus.split(' ') if i not in sw])
-		
-		wc = WordCloud(background_color="#0E1117", repeat=False, mask=mask)
-		
-		wc.generate(corpus)
-		
-		col1.image(wc.to_array(),width=400)	
-		
-		if col1.checkbox('Would you like to filter Wordcloud according to other questions'):
-			
-			st.markdown("""---""")
-			
-			feature2=st.selectbox('Select one question to filter the wordcloud (Select one of the last ones for checking some new tools)',[questions[i] for i in data.columns if \
-			i!='FCS Score' and (i in continues or len(data[i].unique())<=8)])
-			var2=[i for i in questions if questions[i]==feature2][0]
-			
-			if var2 in continues:
-				threshold=st.slider('Select the threshold', min_value=data[var2].fillna(0).min(),max_value=data[var2].fillna(0).max())
-				subcol1,subcol2=st.columns([2,2])	
-				
-				corpus1=' '.join(data[data[var2]<threshold][var].apply(lambda x:'' if x=='0' else x))
-				corpus1=re.sub('[^A-Za-z ]',' ', corpus1)
-				corpus1=re.sub('\s+',' ', corpus1)
-				corpus1=corpus1.lower()
-				if corpus1==' 'or corpus1=='':
-    					corpus1='No_response'
-				else:
-					corpus1=' '.join([i for i in corpus.split(' ') if i not in sw])
-				wc1 = WordCloud(background_color="#0E1117", repeat=False, mask=mask)
-				wc1.generate(corpus1)
-				corpus2=' '.join(data[data[var2]>=threshold][var].apply(lambda x:'' if x=='0' else x))
-				corpus2=re.sub('[^A-Za-z ]',' ', corpus2)
-				corpus2=re.sub('\s+',' ', corpus2)
-				corpus2=corpus2.lower()
-				if corpus2==' ' or corpus2=='':
-    					corpus2='No_response'
-				else:
-					corpus2=' '.join([i for i in corpus.split(' ') if i not in sw])
-				wc2 = WordCloud(background_color="#0E1117", repeat=False, mask=mask)
-				wc2.generate(corpus2)
-				subcol1.write('Response under the threshold')
-				subcol1.image(wc1.to_array(),width=400)
-				subcol2.write('Response over the threshold')
-				subcol2.image(wc2.to_array(),width=400)
-			else:
-				subcol1,subcol2=st.columns([2,2])
-				L=data[var2].unique()
-				
-				corpus1=corpus2=corpus3=corpus4=corpus5=corpus6=corpus7=corpus8=''
-				Corpuses=[corpus1,corpus2,corpus3,corpus4,corpus5,corpus6,corpus7,corpus8]
-				
-				
-				for i in range(len(L)):
-					Corpuses[i]=' '.join(data[data[var2]==L[i]][var].apply(lambda x:'' if x=='0' else x))
-					Corpuses[i]=re.sub('[^A-Za-z ]',' ', Corpuses[i])
-					Corpuses[i]=re.sub('\s+',' ', Corpuses[i])
-					Corpuses[i]=Corpuses[i].lower()
-					if Corpuses[i]==' ':
-    						Corpuses[i]='No_response'
+						if k==1:
+							col1.subheader(quest.iloc[i]['title'])
+							col1.plotly_chart(fig,use_container_width=True)
+							col1.write(quest.iloc[i]['description'])
+						else:
+							col2.subheader(quest.iloc[i]['title'])
+							col2.plotly_chart(fig,use_container_width=True)
+							col2.write(quest.iloc[i]['description'])
 					else:
-						Corpuses[i]=' '.join([i for i in Corpuses[i].split(' ') if i not in sw])
-					wc2 = WordCloud(background_color="#0E1117", repeat=False, mask=mask)
-					wc2.generate(Corpuses[i])
-					if i%2==0:
-						subcol1.write('Response : '+str(L[i])+' '+str(len(data[data[var2]==L[i]]))+' '+'repondent')
-						subcol1.image(wc2.to_array(),width=400)
-					else:
-						subcol2.write('Response : '+str(L[i])+' '+str(len(data[data[var2]==L[i]]))+' '+'repondent')
-						subcol2.image(wc2.to_array(),width=400)
+						st.subheader(quest.iloc[i]['title'])
+						st.plotly_chart(fig,use_container_width=True)
+						st.write(quest.iloc[i]['description'])
+					
+									
+				elif quest.iloc[i]['graphtype']=='bar':
+					
+					st.subheader(quest.iloc[i]['title'])
+				
+					col1,col2=st.columns([1,1])
+
+					fig1=count2(quest.iloc[i]['variable_x'],quest.iloc[i]['variable_y'],\
+					df,legendtitle=quest.iloc[i]['legendtitle'],xaxis=quest.iloc[i]['xtitle'])
+					
+					col1.plotly_chart(fig1,use_container_width=True)
+						
+					fig2=pourcent2(quest.iloc[i]['variable_x'],quest.iloc[i]['variable_y'],\
+					df,legendtitle=quest.iloc[i]['legendtitle'],xaxis=quest.iloc[i]['xtitle'])
+					#fig2.update_layout(title_text=quest.iloc[i]['title'],font=dict(size=20),showlegend=True,xaxis_tickangle=45)
+					col2.plotly_chart(fig2,use_container_width=True)
+					st.write(quest.iloc[i]['description'])
+					#st.write(df)
+						
+	
 			
 	elif topic=='Display Sankey Graphs':
 	
-		title2.title('Visuals for questions related to cultures (questions C3 to C17)')
+		title1.title('Sankey Diagrams')
 		st.title('')
-				
-			
-		sankey=[i for i in data.columns if i[0]=='C' and 'C1_' not in i and 'C2_' not in i and i!='Clan']
-		sankeyseeds=sankey[:65]
-		sank=data[sankeyseeds]
-		bean=sank[[i for i in sank.columns if 'Bean' in i]].copy()
-		sesame=sank[[i for i in sank.columns if 'Sesame' in i]].copy()
-		cowpea=sank[[i for i in sank.columns if 'Cowpea' in i]].copy()
-		maize=sank[[i for i in sank.columns if 'Maize' in i]].copy()
-		other=sank[[i for i in sank.columns if 'Other' in i]].copy()
-		colonnes=['Seeds Planted','Type of seeds','Origin of seeds','Area cultivated','Did you have enough seed',\
-          'Did you face pest attack','Area affected','Have you done pest management','Origin of fertilizer',\
-          'Fertilizer from Wardi','Applied good practices','Used irrigation','Area irrigated']
-		for i in [bean,sesame,cowpea,maize,other]:
-    			i.columns=colonnes
-		bean=bean[bean['Seeds Planted']=='Yes']
-		sesame=sesame[sesame['Seeds Planted']=='Yes']
-		cowpea=cowpea[cowpea['Seeds Planted']=='Yes']
-		maize=maize[maize['Seeds Planted']=='Yes']
-		other=other[other['Seeds Planted']=='Yes']
+		sankey=[i for i in data.columns if data[i].dtype=='object' and i!='nan']
 		
-		bean['Seeds Planted']=bean['Seeds Planted'].apply(lambda x: 'Beans')
-		sesame['Seeds Planted']=sesame['Seeds Planted'].apply(lambda x: 'Sesame')
-		cowpea['Seeds Planted']=cowpea['Seeds Planted'].apply(lambda x: 'Cowpeas')
-		maize['Seeds Planted']=maize['Seeds Planted'].apply(lambda x: 'Maize')
-		other['Seeds Planted']=other['Seeds Planted'].apply(lambda x: 'Other')
 		
-		sank=pd.DataFrame(columns=colonnes)
-		for i in [bean,sesame,cowpea,maize,other]:
-		    sank=sank.append(i)
+		sank=data[sankey].fillna('Unknown').copy()
+		
 		sank['ones']=np.ones(len(sank))
 		
+		st.title('Main needs identified')
 		
-		
-		
-		st.title('Some examples')
-		
-		st.markdown("""---""")
-		st.write('Seeds planted - Origin of Seeds - Type of Seeds - Area Cultivated - Did you have enough seeds?')
-		fig=sankey_graph(sank,['Seeds Planted','Origin of seeds','Type of seeds','Area cultivated','Did you have enough seed'],height=600,width=1500)
+		fig=sankey_graph(sank,['main_need','second_need','third_need'],height=600,width=1500)
 		fig.update_layout(plot_bgcolor='black', paper_bgcolor='grey', width=1500)
 		
+		st.write(' - '.join(['Main need','Second main need','Third main need']))
 		st.plotly_chart(fig,use_container_width=True)
 		
-		st.markdown("""---""")
-		st.write('Origin of fertilizer - Did you face pest attack - Applied good practices - Seeds Planted')
-		fig1=sankey_graph(sank,['Origin of fertilizer','Did you face pest attack','Applied good practices','Seeds Planted'],height=600,width=1500)
-		fig1.update_layout(plot_bgcolor='black', paper_bgcolor='grey', width=1500)
 		
-		st.plotly_chart(fig1,use_container_width=True)
-		
-		st.markdown("""---""")
-		st.write('Area Cultivated - Type of Seeds - Did you face pest attack - Area affected')
-		fig2=sankey_graph(sank,['Area cultivated','Type of seeds','Did you face pest attack','Area affected'],height=600,width=1500)
-		fig2.update_layout(plot_bgcolor='black', paper_bgcolor='grey', width=1500)
-		
-		st.plotly_chart(fig2,use_container_width=True)
 		
 		if st.checkbox('Design my own Sankey Graph'):
 			
 			st.markdown("""---""")
-			feats=st.multiselect('Select features you want to see in the order you want them to appear', colonnes)
+			selection=st.multiselect('Select features you want to see in the order you want them to appear',\
+			 [questions[i] for i in sank.columns if i!='ones'])
+			feats=[i for i in questions if questions[i] in selection]
 			
 			if len(feats)>=2:
-				st.write(' - '.join(feats))
+				st.write(' - '.join(selection))
 				fig3=sankey_graph(sank,feats,height=600,width=1500)
 				fig3.update_layout(plot_bgcolor='black', paper_bgcolor='grey', width=1500)
-				st.plotly_chart(fig3,use_container_width=True)
+				st.plotly_chart(fig3,use_container_width=True)	
 		
 		
 		
