@@ -270,7 +270,7 @@ def main():
 		st.write('Another interesting aspect is that people who pay for water tend to feel better than people who do not.')
 		st.write('We can see also that having many boys in the household seems also to decrease the feeling of well being. And tha women seem more satisfied with their situation than men.')
 		st.write('Finaly we can see that beneficiary of MPCA are among those who feel not adequate however the more they received the better they felt which could be a lead to think that the targeting was right. Livelihood is also the need that the one who are feeling the worst tend to identify as the main priority.')
-		
+		st.write('Finaly we see that the CSI index does not seem to have any implication on the overall feeling of the beneficiaries')
 		
 		
 		st.markdown("""---""")	

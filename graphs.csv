@@ -1,38 +1,35 @@
 variable_x	variable_y	description	xtitle	ytitle	legendtitle	title	graphtype
 region	water_transmit_disease	In Al Hudaydah, over 40 % people believe that water can not transmit diseases					bar
 region	pay_water	people pay for water mainly in Lahj and Al Hudaydah					bar
-meals_adults	medical_access	Those having no access to medical facilities also seems to strruglle for eating	Number of meals yesterday		Are you able to access medical services ?	Access to medical services according to the number of meals per adult the day before.	bar
+meals_adults	medical_access	Those having no access to medical facilities also seems to strugle for eating	Number of meals yesterday		Are you able to access medical services ?	Access to medical services according to the number of meals per adult the day before.	bar
 receive_irrig	MAHFP	Those who received drip irrigation have significantly higher MAHFP scores	Did you receive a drip irrigation system?	MAHFP Score		Months of Adequate Household Food Provisioning (MAHFP) and access to irrigation	violin
-income_source	FCS	Land cultivators and formal employer have the lowest FCS Scores which is surprising since formal employer have globally the highest income per member. Howaver, as we can see below this might be because most of them are also unemployed as they say they have no source of Livelihood.	Main source of income				bar
-income_source	income_per_member	They also have the lowest level of income per family member		income per family member		Income per family member split by income source	violin
+income_source	FCS	Land cultivators and formal employer also have the lowest FCS Scores which is surprising since formal employer have globally the highest income per member. Howaver, as we can see below this might be because most of them are also unemployed as they say they have no source of Livelihood.	Main source of income		FCS category	FCS Score according to main source of income	bar
+income_source	income_per_member	Land cultivators and formal employer have the lowest level of income per family member		income per family member		Income per family member<br> split by income source	violin
 income_source	debt_level	Those living from livestock have higher level of debt	level of cumulative debt			Level of debt per main source of income	violin
-sickness 	husband_train	Those having received husbandry training are more likely to do some sickness prevention for their livestock.	What steps do you take to prevent your livestock from getting sick?			Prevention of livestock sickness according to participation to husbandry training	bar
-region	feeding 	In Al Hudaydah people seems to mainly purchase fodder for cattles					map
+sickness 	husband_train	Those having received husbandry training are more likely to do some sickness prevention for their livestock.	What steps do you take to prevent your livestock from getting sick?		Did you receive any training on animal husbandry?	Prevention of livestock sickness according to participation to husbandry training	bar
+region	feeding 	In Al Hudaydah people seems to mainly purchase fodder for cattles	Source of livelihood				map
 benficiarytype	FCS	WASH beneficiaries are among the most vulnerables according to FCS. This probably shows the good impact of FSL and cash activities			FCS category	FCS Score according to beneficiary type	bar
 livelihood_source	FCS	Those with no source of livelihood are particularly vulnerable			FCS category	FCS Score according to main source of income	bar
 region	FCS	In Lhaj beneficiaries are more vulnerable although most are host. 					bar
-use_latrine	FCS		Did you or any other member of your household <br> use a latrine/toilet the last time you defecated?		FCS category	FCS Score according to use of latrine	bar
-gender resp	educ	Male ar much more educated than female	Gender of the respondent		 	Education level per gender	bar
+use_latrine	FCS	Those who do not use latrine seems to have lower FCS Scores.	Did you or any other member of your household <br> use a latrine/toilet the last time you defecated?		FCS category	FCS Score according to use of latrine	bar
+gender resp	educ	Male are much more educated than female	Gender of the respondent		 	Education level per gender	bar
 region	diarrhea_remedies 	The way to treat diarrhea can vary very much from one region to another, for instance, in Taiz and Marib people quite often  use traditional medicine while almost never in Lahj and Al udaydah					map
 debts_purpose 	debt_level	Debts for weddings seem to be quite important		Level of cumulative debt		Level and purpose of debt	violin
-debts_purpose 	CSI	Those having debts for shelter have a higher CSI index	CSI index			CSI index per debt purpose	violin
-disp_times	CSI	The more people have been displaced the more likely they have higher CSI index	CSI index			CSI index according to number of displacement	violin
-feeding 	CSI	Surprisingly it seems that those purchasing fodder have  higher CSI index. This is probably because they do not have other choice (availability of land to pasture maybe)	CSI index			CSI index according to how people manage to feed their animals	violin
-fodder 	CSI	Those with higher CSI index tneds to feed their animal mainly with Maize and Alfalfa	CSI index			CSI index according to how main fodders	violin
-region_origin	CSI	IDPs from Taiz seem particularly vulnerable	CSI index			CSI index according to region of origin	violin
-livingcond_adeq	benficiarytype	WASH beneficiaries do not think their living condition is adequate			Do you believe the living conditions in your settlements are adequate?	Feeling to live in adequate conditions according to type of beneficiaries	bar
-assistancetype	water_transmit_disease	Surprisingly over 80 % of those having received hygiene kits do not believe water can transmit diseases			Do you think water can transmit diseases?	Believe water can transmit disease according to type of assistance received	bar
-MAHFP 	MAHFP	If we look at the different scores we can see that for the most vulnerables the month when it really start to become difficult to eat is December				coucou	violin
-MAHFP 	CSI						violin
-MAHFP 	FCS						bar
-toilet	MAHFP	Communal latrines users have lower MAHFP				coucou	violin
-toilet	CSI						violin
-toilet	FCS						bar
-Malnurished_children	CSI						violin
-Malnurished_children	freq worryfood	Household with malnourished children tend to worry more about food availability and have higher CSI index					bar
-hosting	CSI	Household with malnourished children tend to worry more about food availability and have higher CSI index				coucou	violin
-hosting	freq worryfood	Those hosting people are globally more vulnerable than those who do not (as per CSI and FCS)				coucou	bar
-main_need	CSI					coucou	violin
-main_need	FCS	The main needs identified by the most vulnerable beneficiaries are latrines, health and waterpoints					bar
-part_mother_group	CSI					coucou	violin
-part_mother_group	FCS	Members of Mother Supporting Groups seems to have higher better FCS though higher CSI					bar
+debts_purpose 	CSI	Those having debts for shelter have a higher CSI index		CSI index		CSI index per debt purpose	violin
+disp_times	CSI	The more people have been displaced the more likely they have higher CSI index		CSI index		CSI index according to number of displacement	violin
+feeding 	CSI	Surprisingly it seems that those purchasing fodder have  higher CSI index. This is probably because they do not have other choice (availability of land to pasture maybe)		CSI index		CSI index according to how people manage to feed their animals	violin
+fodder 	CSI	Those with higher CSI index tneds to feed their animal mainly with Maize and Alfalfa		CSI index		CSI index according to main fodders	violin
+region_origin	CSI	IDPs from Taiz seem particularly vulnerable		CSI index		CSI index according to region of origin	violin
+livingcond_adeq	benficiarytype	Over 90 % of WASH beneficiaries do not think their living condition is adequate			Do you believe the living conditions in your settlements are adequate?	Feeling to live in adequate conditions according to type of beneficiaries	bar
+assistancetype	water_transmit_disease	Surprisingly over 80 % of those having received hygiene kits do not believe water can transmit diseases. This tends to show a lack of sensitization after distribution of NFI kits.			Do you think water can transmit diseases?	Believe water can transmit disease according to type of assistance received	bar
+MAHFP 	MAHFP			MAHFP Score		MAHFP according to month when it was difficult	violin
+MAHFP 	CSI			CSI index		CSI according to month when it was difficult	violin
+MAHFP 	FCS	If we look at the different scores we can see that for the most vulnerables the month when it really start to become difficult to eat is December			FCS category	FCS according to month when it was difficult	bar
+Malnurished_children	CSI			CSI index		CSI index according to presence of malnurished children	violin
+Malnurished_children	freq worryfood	Household with malnourished children tend to worry more about food availability and have higher CSI index				How often the household worries that there would not have enough food to eat according to presence of manurished children	bar
+hosting	CSI	Household with malnourished children tend to worry more about food availability and have higher CSI index		CSI index		CSI index according to presence of hosts in the household	violin
+hosting	freq worryfood				  	How often the household worries that there would not have enough food to eat according to presence of hosts in the household	bar
+main_need	CSI	Those hosting people are globally more vulnerable than those who do not (as per CSI and FCS)		CSI index		CSI index distribution per main need identified	violin
+main_need	FCS	The main needs identified by the most vulnerable beneficiaries are latrines, health and waterpoints			FCS category	FCS according to main need identified	bar
+part_mother_group	CSI			CSI index		CSI index distribution according to being part of mother supporting group	violin
+part_mother_group	FCS	Members of Mother Supporting Groups seems to have higher better FCS though higher CSI			FCS category	FCS according to being part of mother supporting group	bar
