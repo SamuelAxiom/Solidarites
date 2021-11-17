@@ -284,7 +284,7 @@ def main():
 		title1.title('Correlations uncovered from the database in relation to geographic information')
 		toshow=correl[correl['variable_x'].fillna('').apply(lambda x: True if 'region' in x else False)]
 		#st.write(data['region'].unique())
-		st.write(toshow)
+		#st.write(maps)
 		#st.write(questions)
 		
 		for i in range(len(toshow)):
@@ -312,9 +312,14 @@ def main():
 			
 			df['persons']=np.ones(len(df))
 			
+			
+			
 			if toshow.iloc[i]['variable_x']=='region_origin':
-				regions=maps[maps['admin'].isin(data['region_origin'].unique().tolist())].copy()
+				
 				df=df[df['region_origin']!='0']
+				regions_names={"Ma'rib":'Marib','Amanat Al Asima':'Sanaa city'}
+				df['region_origin']=df['region_origin'].apply(lambda x:x if x not in regions_names else regions_names[x])
+				regions=maps[maps['admin'].isin(df['region_origin'].unique().tolist())].copy()
 			else:
 				regions=maps[maps['admin'].isin(data['region'].unique().tolist())].copy()
 			#st.write(region)
@@ -356,7 +361,7 @@ def main():
 				a['lat']=a['centroid'].apply(lambda x:x[0])
 				a['long']=a['centroid'].apply(lambda x:x[1])
 				
-				col1,col2=st.columns([2,1])
+				col1,col2=st.columns([9,5])
 				
 				#st.write(a)
 					
@@ -373,12 +378,19 @@ def main():
 				))
 				
 				
+				col2.subheader(toshow.iloc[i]['legendtitle'])
 				x=a['admin']
 				fig=go.Figure()
 				for i in range(len(L)):
 					fig.add_trace(go.Bar(x=x, y=a[L[i]], name=labels[i],marker_color='rgb('+colors[i][1:-1]+')'))	
 				
 				fig.update_layout(barmode='relative',yaxis={'title':'Persons'})
+				fig.update_layout(legend_title=None,legend=dict(orientation='h',
+      				  yanchor="bottom",
+      				  y=1.02,
+      				  xanchor="right",
+       			 x=1.01,font=dict(size=18),title=dict(font=dict(size=18))
+    				))
 				col2.plotly_chart(fig,use_container_width=True)
 				total=a[L[0]].copy()
 				for k in range(1,len(L)):
@@ -388,12 +400,17 @@ def main():
 				for i in range(len(L)):
 					fig2.add_trace(go.Bar(x=x, y=a[L[i]]/total*100, name=labels[i],marker_color='rgb('+colors[i][1:-1]+')'))	
 				fig2.update_layout(barmode='relative',yaxis={'title':'Pourcentage'})
+				fig2.update_layout(legend_title=None,legend=dict(orientation='h',
+      				  yanchor="bottom",
+      				  y=1.02,
+      				  xanchor="right",
+       			 x=1.01,font=dict(size=18),title=dict(font=dict(size=18))
+    				))
 				col2.plotly_chart(fig2,autosize=False,use_container_width=True,height=50)
 		
 				
 			
 			elif toshow.iloc[i]['variable_x']!='region_origin':
-				
 				
 				#st.write(df)
 				
@@ -412,12 +429,12 @@ def main():
 				))
 				
 				fig = px.box(df, y='region', x='pay_water',points='all')
-				fig.update_layout(yaxis={'title':None},xaxis={'title':'Price of water'})
+				fig.update_layout(yaxis={'title':None},xaxis={'title':'Price of water (in $)'})
 				col2.plotly_chart(fig,use_container_width=True)
 				
 			else:
 				#st.write(df)
-				
+				#st.write(regions)
 				regions['coordinates']=regions['coordinates'].apply(lambda x:eval(x))
 				regions['centroid']=regions['centroid'].apply(lambda x:eval(x))
 				regions['lat']=regions['centroid'].apply(lambda x:x[0])
@@ -435,7 +452,7 @@ def main():
 				))
 				
 				fig = px.box(df, x='region_origin', y='CSI',points='all')
-				fig.update_layout(yaxis={'title':None},xaxis={'title':'Price of water'})
+				fig.update_layout(xaxis={'title':None},yaxis={'title':'CSI index'})
 				st.plotly_chart(fig,use_container_width=True,height=300)
 				
 		
